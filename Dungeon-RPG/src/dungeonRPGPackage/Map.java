@@ -1,4 +1,4 @@
-package DungeonSrc;
+package dungeonRPGPackage;
 /**
  * Object for representing a Map in the dungeon
  * @author rrienton
