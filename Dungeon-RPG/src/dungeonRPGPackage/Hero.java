@@ -17,20 +17,32 @@ public class Hero {
 	}
 	
 	/**
+	 * If the hero can move to the destTile, then move it.
 	 * 
 	 * @return 0 if move was succesful, else return -1
 	 */
 	public int move(Tile destTile){
-		return 0;
+		if(canMove(destTile) == false){
+			return -1;
+		}
+		else{
+			this.tile = destTile;
+			return 0;
+		}
 	}
 	
 	/**
+	 * Checks whether the hero can move to the destTile or not.
 	 * 
-	 * @param destTile 
-	 * @return
+	 * @param destTile : The destination tile that is being tested.
+	 * @return true if the hero can move to the destTile, false otherwise.
 	 */
 	private boolean canMove(Tile destTile){
-		return false;
+		if(destTile == null || destTile.isBlocked() == true){
+			return false;
+		}
+		
+		return true;
 	}
 	
 }

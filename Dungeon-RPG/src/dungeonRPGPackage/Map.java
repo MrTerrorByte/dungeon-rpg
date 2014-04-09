@@ -5,6 +5,7 @@ package dungeonRPGPackage;
  *
  */
 public class Map {
+	private static final int FrameWidth = 600, FrameHeight = 600;
 	private int width;				//width of the map
 	private int height;				//height of the map
 	private int entranceLocX;		//x location of the entrance
@@ -36,6 +37,10 @@ public class Map {
 		this.exitLocX = exitLocX;
 		this.exitLocY = exitLocY;
 		this.tileArray = new Tile[width][height];
+		for(int i=0; i < width; i++)
+			for(int j=0; j < height; j++){
+				this.tileArray[i][j] = new Tile(FrameWidth/width, FrameHeight/height, false);
+			}
 	}
 
 	//getters and setters
