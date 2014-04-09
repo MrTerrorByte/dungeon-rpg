@@ -39,7 +39,7 @@ public class Map {
 		this.tileArray = new Tile[width][height];
 		for(int i=0; i < width; i++)
 			for(int j=0; j < height; j++){
-				this.tileArray[i][j] = new Tile(FrameWidth/width, FrameHeight/height, false);
+				this.tileArray[i][j] = new Tile(FrameWidth/width, FrameHeight/height, i, j, false);
 			}
 	}
 
