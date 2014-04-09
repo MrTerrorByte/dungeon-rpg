@@ -13,9 +13,11 @@ public class TestHero {
 	Map map = new Map(100, 100, 0, 0, 0, 0);
 	
 	@Test
-	public void testCanMove() {
+	public void testMove() {
 		map.tileArray[5][5].setBlocked(true);
-		assertEquals(-1,hero.move(map.tileArray[5][5]));
+		assertEquals(-1, hero.move(map.tileArray[5][5]));
+		assertEquals(0, hero.move(map.tileArray[0][0]));
+		assertEquals(map.tileArray[0][0], hero.getTile());
 	}
 
 }

@@ -45,4 +45,8 @@ public class Hero {
 		return true;
 	}
 	
+	public Tile getTile(){
+		return this.tile;
+	}
+	
 }
