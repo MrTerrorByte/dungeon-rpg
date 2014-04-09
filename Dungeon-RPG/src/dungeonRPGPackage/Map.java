@@ -5,7 +5,7 @@ package dungeonRPGPackage;
  *
  */
 public class Map {
-	private static final int FrameWidth = 600, FrameHeight = 600;
+	private static final int FrameWidth = 700, FrameHeight = 700;
 	private int width;				//width of the map
 	private int height;				//height of the map
 	private int entranceLocX;		//x location of the entrance

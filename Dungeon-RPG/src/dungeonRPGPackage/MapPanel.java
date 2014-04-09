@@ -20,7 +20,7 @@ public class MapPanel extends JPanel {
 	 */
 	public MapPanel(Map mapObject){
 		this.mapObject = mapObject;
-		this.setLayout(new GridLayout(600,600));
+		this.setLayout(new GridLayout(700,700));
 		ImageIcon icon = createImageIcon("images/cave.png");
 		JLabel background = new JLabel(icon);
 		this.add(background);
