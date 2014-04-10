@@ -15,9 +15,10 @@ public class Monster {
 	public Monster(int level){
 		this.level = level;
 		this.attack = 5*Math.pow(level, 2) + 20;
-		this.maxHealth = 100*(Math.pow(this.level, 2));
-		this.gold = (int) (100*(Math.pow(this.level, 2)));
-		this.expGain = 50*(level+1);
+		this.maxHealth = 100*(Math.pow(this.level, 2))+100;
+		this.gold = (int) (100*(Math.pow(this.level, 2))+100);
+		this.expGain = 10*(level)+50;
+		this.currHealth = this.maxHealth;
 	}
 	
 	public int getExpGain(){

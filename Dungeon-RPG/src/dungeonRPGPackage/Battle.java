@@ -8,9 +8,8 @@ public class Battle {
 	 * @param hero : The hero to attack with or from
 	 * @param monster : The monster to attack with or from
 	 * @param Turn : When true, it is the hero's turn, otherwise it's the monster's turn
-	 * @return : 0 on success, -1 on failure
 	 */
-	public static int attack(Hero hero, Monster monster, boolean Turn){
+	public static void attack(Hero hero, Monster monster, boolean Turn){
 		Weapon heroWeapon = hero.getWeapon();
 		if(Turn){ //hero's turn
 			monster.setCurrHealth(monster.getCurrHealth()- heroWeapon.getAttack());
@@ -25,12 +24,34 @@ public class Battle {
 				endBattle("monster", hero, monster);
 			}
 		}
-		return 0;
 	}
 	
+	/**
+	 * If the hero has potions left, use it to replenish the hero's current health.
+	 * 
+	 * @param hero : the hero that is using the potion
+	 * @param potion : the potion being used
+	 */
+	public static void usePotion(Hero hero, Potion potion){
+		if(hero.getPotionCount() == 0){
+			return;
+		}
+		hero.setPotionCount(hero.getPotionCount()-1);
+		hero.setCurrHealth(hero.getCurrHealth()+hero.getMaxHealth()*potion.getHealAmount());
+	}
+	
+	/**
+	 * This method is called after a battle is over.
+	 * 
+	 * @param victor : if the hero won, then he gets the exp and gold gains. if the monster won, then do endgame conditions.
+	 * @param hero : the hero in the battle
+	 * @param monster : the monster in the battle
+	 */
 	public static void endBattle(String victor, Hero hero, Monster monster){
 		if(victor.equals("hero")){ //if the victor is hero, then have its weapon gain exp
 			hero.getWeapon().gainExp(monster.getExpGain());
+			hero.getShield().gainExp(monster.getExpGain());
+			hero.updateHp();
 			hero.setGold(hero.getGold() + monster.getGoldGain());
 		}
 	}

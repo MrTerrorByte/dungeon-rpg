@@ -11,7 +11,8 @@ public class Hero {
 	private Map map;
 	private double maxHealth;		//the maximum health the hero has
 	private double currHealth;		//how much health the hero currently has
-	private Item inventory[][];		//hero's inventory which holds items like weapons and potions
+	private int potionCount;		//a hero starts with 5 potions, but can buy more later
+	private Potion potionArray[];	//array that holds all the potions
 	private String name;			//hero's name, picked by user
 	private int x,y;				//hero's x and y coordinate on the map
 	private Weapon weapon;			//hero's equipped weapon
@@ -29,10 +30,28 @@ public class Hero {
 		this.weapon = weapon;
 		this.shield = shield;
 		this.map = map;
-		this.inventory = new Item[10][10];
+		this.potionCount = 5;
+		this.potionArray = new Potion[5];
+		addPotions();
 		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
 		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
 		this.gold = 1000;
+	}
+	
+	/**
+	 * initializes the potions array.
+	 */
+	public void addPotions(){
+		for(int index = 0; index < potionArray.length; index++){
+			potionArray[index] = new Potion("potion","heals 25% hp",0.25);
+		}
+	}
+	
+	/**
+	 * When the shield levels up, the hero's hp must be increased.
+	 */
+	public void updateHp(){
+		this.maxHealth = 100+shield.getHpBoost();
 	}
 	
 	/**
@@ -73,6 +92,18 @@ public class Hero {
 		return true;
 	}
 	
+	public Potion[] getPotionArray(){
+		return this.potionArray;
+	}
+	
+	public int getPotionCount(){
+		return this.potionCount;
+	}
+	
+	public void setPotionCount(int count){
+		this.potionCount = count;
+	}
+	
 	public void setMap(Map map){
 		this.map = map;
 	}
@@ -107,6 +138,8 @@ public class Hero {
 	
 	public void setCurrHealth(double health){
 		this.currHealth = health;
+		if(this.currHealth > this.maxHealth)
+			this.currHealth = this.maxHealth;
 	}
 	
 	public void setMaxHealth(double maxHealth){
@@ -127,5 +160,9 @@ public class Hero {
 	
 	public Weapon getWeapon(){
 		return this.weapon;
+	}
+	
+	public Shield getShield(){
+		return this.shield;
 	}
 }

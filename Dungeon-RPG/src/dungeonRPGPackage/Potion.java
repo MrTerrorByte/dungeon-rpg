@@ -8,5 +8,8 @@ public class Potion extends Item{
 		super(name, description);
 		this.healAmount = healAmount;
 	}
-
+	
+	public double getHealAmount(){
+		return this.healAmount;
+	}
 }
