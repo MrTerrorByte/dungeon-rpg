@@ -1,6 +1,5 @@
 package dungeonRPGPackage;
 
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -30,7 +29,7 @@ public class GameController implements KeyListener{
     public GameController()
     {
     	//dungeonMaps = new Map[10];
-    	Map dungeonMap = new Map(25, 49, 0, 14);
+    	Map dungeonMap = new Map(5, 11, 5, 3);
     	Weapon weapon = new Weapon("Sword","Sword",0,0);
     	Shield shield = new Shield("Shield","Shield",0,0);
     	hero = new Hero("Hero", dungeonMap, weapon, shield);
@@ -39,7 +38,9 @@ public class GameController implements KeyListener{
         
         dungeonFrame.setLayout(null);
         dungeonFrame.setResizable(false);
+        dungeonFrame.setUndecorated(true);
         dungeonFrame.setBounds(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
+        dungeonFrame.setLocationRelativeTo(null);
         dungeonFrame.setVisible(true);
         dungeonFrame.addKeyListener(this);
 
@@ -52,13 +53,13 @@ public class GameController implements KeyListener{
         for (int row = 0; row < Map.ARRAYSIZE; row++) {
             for (int col = 0; col < Map.ARRAYSIZE; col++) {
             	if(col > 5){
-            		hero.getMap().tileArray[row][col] = Tile.GRASS;
+            		hero.getMap().getTileArray()[row][col] = Tile.GRASS;
             	}
-            	else if(row > 20 && row < 31 && col > 10){
-            		hero.getMap().tileArray[row][col] = Tile.NONE;
+            	else if(row > 3 && row < 8 && col > 2){
+            		hero.getMap().getTileArray()[row][col] = Tile.NONE;
             	}
             	else{
-            		hero.getMap().tileArray[row][col] = Tile.ROCK;
+            		hero.getMap().getTileArray()[row][col] = Tile.ROCK;
             	}
             }
         }
@@ -76,7 +77,7 @@ public class GameController implements KeyListener{
             
             for (int row = 0; row < Map.ARRAYSIZE; row++) {
                 for (int col = 0; col < Map.ARRAYSIZE; col++) {
-                    switch (hero.getMap().tileArray[row][col]) {
+                    switch (hero.getMap().getTileArray()[row][col]) {
                         case GRASS:
                             tileGraphics.setColor(Color.GREEN);
                             break;
@@ -110,18 +111,30 @@ public class GameController implements KeyListener{
     }
 
 	@Override
+	/**
+	 * Handles movement when arrow keys are pressed and when the escape button is pressed
+	 * @param arg0 KeyEvent
+	 */
 	public void keyPressed(KeyEvent arg0) {
+		//press up key
 		if(arg0.getKeyCode() == KeyEvent.VK_UP){
 			hero.move(hero.getX(), hero.getY()-1);
 		}
+		//press down key
 		else if(arg0.getKeyCode() == KeyEvent.VK_DOWN){
 			hero.move(hero.getX(), hero.getY()+1);
 		}
+		//press left key
 		else if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
 			hero.move(hero.getX()-1, hero.getY());
 		}
+		//press right key
 		else if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
 			hero.move(hero.getX()+1, hero.getY());
+		}
+		//press esc
+		else if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE){
+			System.exit(0);
 		}
 	}
 

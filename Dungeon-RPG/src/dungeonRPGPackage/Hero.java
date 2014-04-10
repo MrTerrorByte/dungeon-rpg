@@ -1,4 +1,7 @@
 package dungeonRPGPackage;
+
+import dungeonRPGPackage.Map.Tile;
+
 /**
  * 
  * @author jordan
@@ -56,7 +59,12 @@ public class Hero {
 	 * @return : true if the hero can move to the tile, otherwise false
 	 */
 	private boolean canMove(int destX, int destY){
+		//if where we're moving is out of bounds
 		if(destX < 0 || destY < 0 || destX >= this.map.getWidth() || destY >= this.map.getHeight()){
+			return false;
+		}
+		//if where we're moving there is a rock
+		if(map.getTileArray()[destX][destY] == Tile.ROCK){
 			return false;
 		}
 		

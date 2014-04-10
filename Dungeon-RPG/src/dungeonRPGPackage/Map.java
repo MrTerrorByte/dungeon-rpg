@@ -19,7 +19,7 @@ public class Map {
 	private int entranceLocY;		//y location of the entrance
 	private int exitLocX;			//x location of the exit
 	private int exitLocY;			//y location of the exit
-	public Tile[][] tileArray;		//array of Tiles representing the Map
+	private Tile[][] tileArray;		//array of Tiles representing the Map
 	
 	/**
 	 * Constructs a Map and it's corresponding tileArray.
@@ -47,6 +47,13 @@ public class Map {
 	}
 
 	//getters and setters
+	public Tile[][] getTileArray(){
+		return tileArray;
+	}
+	
+	public void setTileArray(Tile[][] tileArray ){
+		this.tileArray = tileArray;
+	}
 	
 	public int getWidth() {
 		return width;
