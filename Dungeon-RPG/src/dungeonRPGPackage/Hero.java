@@ -10,13 +10,19 @@ public class Hero {
 	private double currHealth;		//how much health the hero currently has
 	private Item inventory[][];		//hero's inventory which holds items like weapons and potions
 	private String name;			//hero's name, picked by user
+	private int x,y;				//hero's x and y coordinate on the map
+	private Weapon weapon;			//hero's equipped weapon
+	private Shield shield;			//hero's equipped shield
 	
 	/**
 	 * Constructor for hero: sets default maxHealth value to 100 and initializes the inventory.
+	 * Also equips a shield and weapon.
 	 */
-	public Hero(String name){
+	public Hero(String name, Map map, Weapon weapon, Shield shield){
 		this.name = name;
-		this.maxHealth = 100;
+		this.maxHealth = 100+shield.getHpBoost();
+		this.weapon = weapon;
+		this.map = map;
 		this.inventory = new Item[10][10];
 	}
 	
