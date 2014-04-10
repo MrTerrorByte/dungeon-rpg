@@ -5,6 +5,11 @@ public class Item {
 	private String name;				//name of item
 	private String description;			//description of item as displayed when cursor hovers over item
 	
+	public Item(String name, String description){
+		this.name = name;
+		this.description = description;
+	}
+	
 	public String getName() {
 		return name;
 	}

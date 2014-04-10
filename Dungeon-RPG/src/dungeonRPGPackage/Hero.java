@@ -6,7 +6,6 @@ package dungeonRPGPackage;
  */
 public class Hero {
 	private Map map;
-	private Tile tile;				//the tile that the hero is standing on
 	private double maxHealth;		//the maximum health the hero has
 	private double currHealth;		//how much health the hero currently has
 	private Item inventory[][];		//hero's inventory which holds items like weapons and potions
