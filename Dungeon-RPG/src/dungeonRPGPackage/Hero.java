@@ -16,6 +16,7 @@ public class Hero {
 	private int x,y;				//hero's x and y coordinate on the map
 	private Weapon weapon;			//hero's equipped weapon
 	private Shield shield;			//hero's equipped shield
+	private int gold;				//how much gold the hero has
 	
 	/**
 	 * Constructor for hero: sets default maxHealth value to 100 and initializes the inventory.
@@ -31,6 +32,7 @@ public class Hero {
 		this.inventory = new Item[10][10];
 		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
 		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
+		this.gold = 1000;
 	}
 	
 	/**
@@ -69,10 +71,6 @@ public class Hero {
 		}
 		
 		return true;
-	}
-	
-	public Map getMap(){
-		return this.map;
 	}
 	
 	public void setMap(Map map){
@@ -115,4 +113,19 @@ public class Hero {
 		this.maxHealth = maxHealth;
 	}
 	
+	public Map getMap(){
+		return this.map;
+	}
+	
+	public int getGold(){
+		return this.gold;
+	}
+	
+	public void setGold(int gold){
+		this.gold = gold;
+	}
+	
+	public Weapon getWeapon(){
+		return this.weapon;
+	}
 }
