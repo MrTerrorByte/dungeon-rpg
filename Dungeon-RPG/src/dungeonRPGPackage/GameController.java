@@ -38,7 +38,7 @@ public class GameController implements KeyListener{
         
         dungeonFrame.setLayout(null);
         dungeonFrame.setResizable(false);
-        dungeonFrame.setUndecorated(true);
+        //dungeonFrame.setUndecorated(true);
         dungeonFrame.setBounds(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
         dungeonFrame.setLocationRelativeTo(null);
         dungeonFrame.setVisible(true);
