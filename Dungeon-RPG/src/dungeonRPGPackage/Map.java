@@ -40,9 +40,9 @@ public class Map {
 		this.exitLocX = exitLocX;
 		this.exitLocY = exitLocY;
 		this.tileArray = new Tile[ARRAYSIZE][ARRAYSIZE];
-		for(int i=0; i < width; i++)
-			for(int j=0; j < height; j++){
-				this.tileArray[i][j] = Tile.ROCK;
+		for(int row=0; row < width; row++)
+			for(int col=0; col < height; col++){
+				this.tileArray[row][col] = Tile.ROCK;
 			}
 	}
 
