@@ -9,7 +9,7 @@ import dungeonRPGPackage.Map;
 
 public class TestHero {
 
-	Hero hero = new Hero();
+	Hero hero = new Hero("Jordan");
 	Map map = new Map(100, 100, 0, 0, 0, 0);
 	
 	@Test

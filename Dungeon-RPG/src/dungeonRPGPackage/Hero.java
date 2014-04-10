@@ -10,11 +10,13 @@ public class Hero {
 	private double maxHealth;		//the maximum health the hero has
 	private double currHealth;		//how much health the hero currently has
 	private Item inventory[][];		//hero's inventory which holds items like weapons and potions
+	private String name;			//hero's name, picked by user
 	
 	/**
 	 * Constructor for hero: sets default maxHealth value to 100 and initializes the inventory.
 	 */
-	public Hero(){
+	public Hero(String name){
+		this.name = name;
 		this.maxHealth = 100;
 		this.inventory = new Item[10][10];
 	}
@@ -65,6 +67,10 @@ public class Hero {
 	
 	public double getMaxHealth(){
 		return this.maxHealth;
+	}
+	
+	public String getName(){
+		return this.name;
 	}
 	
 	public void setCurrHealth(double health){
