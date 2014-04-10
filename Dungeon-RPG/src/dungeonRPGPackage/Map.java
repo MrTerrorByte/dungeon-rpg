@@ -11,7 +11,7 @@ public class Map {
 		GRASS, ROCK, NONE
 	}
 	
-	public static final int FRAMEWIDTH = 600, FRAMEHEIGHT = 600, ARRAYSIZE = 50;
+	public static final int FRAMEWIDTH = 600, FRAMEHEIGHT = 600, ARRAYSIZE = 12;
 	
 	private int width;				//width of the map
 	private int height;				//height of the map

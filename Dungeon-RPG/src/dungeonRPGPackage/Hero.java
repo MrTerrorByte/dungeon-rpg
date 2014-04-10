@@ -21,9 +21,13 @@ public class Hero {
 	public Hero(String name, Map map, Weapon weapon, Shield shield){
 		this.name = name;
 		this.maxHealth = 100+shield.getHpBoost();
+		this.currHealth = maxHealth;
 		this.weapon = weapon;
+		this.shield = shield;
 		this.map = map;
 		this.inventory = new Item[10][10];
+		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
+		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
 	}
 	
 	/**
@@ -37,7 +41,8 @@ public class Hero {
 			return -1;
 		}
 		else{
-			this.tile = this.map.tileArray[destX][destY];
+			this.x = destX;
+			this.y = destY;
 			return 0;
 		}
 	}
@@ -55,15 +60,31 @@ public class Hero {
 			return false;
 		}
 		
-		return !(this.map.tileArray[destX][destY].isBlocked());
+		return true;
 	}
 	
-	public Tile getTile(){
-		return this.tile;
+	public Map getMap(){
+		return this.map;
 	}
 	
 	public void setMap(Map map){
 		this.map = map;
+	}
+	
+	public int getX(){
+		return this.x;
+	}
+	
+	public void setX(int x){
+		this.x = x;
+	}
+	
+	public int getY(){
+		return this.y;
+	}
+	
+	public void setY(int y){
+		this.y = y;
 	}
 	
 	public double getCurrHealth(){
