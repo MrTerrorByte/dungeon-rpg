@@ -36,6 +36,7 @@ public class GameController implements KeyListener{
     	
         JFrame dungeonFrame = new JFrame();
         
+        dungeonFrame.setTitle("Dungeon-RPG");
         dungeonFrame.setLayout(null);
         dungeonFrame.setResizable(false);
         //dungeonFrame.setUndecorated(true);
