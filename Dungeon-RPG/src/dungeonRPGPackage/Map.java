@@ -5,7 +5,14 @@ package dungeonRPGPackage;
  *
  */
 public class Map {
-	private static final int FrameWidth = 700, FrameHeight = 700;
+	
+	//Enum for Tile
+	public enum Tile{
+		GRASS, ROCK, NONE
+	}
+	
+	public static final int FRAMEWIDTH = 600, FRAMEHEIGHT = 600, ARRAYSIZE = 50;
+	
 	private int width;				//width of the map
 	private int height;				//height of the map
 	private int entranceLocX;		//x location of the entrance
@@ -16,10 +23,6 @@ public class Map {
 	
 	/**
 	 * Constructs a Map and it's corresponding tileArray.
-	 * @param width
-	 *		width of the map
-	 * @param height
-	 * 		height of the map
 	 * @param entranceLocX
 	 * 		x location of the entrance
 	 * @param entranceLocY
@@ -29,17 +32,17 @@ public class Map {
 	 * @param exitLocY
 	 * 		y location of the exit
 	 */
-	public Map(int width, int height, int entranceLocX, int entranceLocY, int exitLocX, int exitLocY){
-		this.width = width;
-		this.height = height;
+	public Map(int entranceLocX, int entranceLocY, int exitLocX, int exitLocY){
+		this.width = ARRAYSIZE;
+		this.height = ARRAYSIZE;
 		this.entranceLocX = entranceLocX;
 		this.entranceLocY = entranceLocY;
 		this.exitLocX = exitLocX;
 		this.exitLocY = exitLocY;
-		this.tileArray = new Tile[width][height];
+		this.tileArray = new Tile[ARRAYSIZE][ARRAYSIZE];
 		for(int i=0; i < width; i++)
 			for(int j=0; j < height; j++){
-				this.tileArray[i][j] = new Tile(FrameWidth/width, FrameHeight/height, i, j, false);
+				this.tileArray[i][j] = Tile.ROCK;
 			}
 	}
 

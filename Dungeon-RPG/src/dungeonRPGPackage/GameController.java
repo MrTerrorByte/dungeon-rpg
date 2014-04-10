@@ -20,7 +20,8 @@ import dungeonRPGPackage.Map.Tile;
  */
 public class GameController implements KeyListener{
 	private BufferStrategy buffer;
-    private Map dungeonMap;
+	private Hero hero;
+	//private Map dungeonMaps[];
 
     int x = 1;
     int y = 45;
@@ -30,6 +31,10 @@ public class GameController implements KeyListener{
      */
     public GameController()
     {
+    	//dungeonMaps = new Map[10];
+    	Map dungeonMap = new Map(25, 49, 0, 14);
+    	//hero = new Hero();
+    	
         JFrame dungeonFrame = new JFrame();
         
         dungeonFrame.setLayout(null);
@@ -44,17 +49,16 @@ public class GameController implements KeyListener{
 			}
 		});
 
-        tiles = new Tile[50][50];
-        for (int i = 0; i < 50; i++) {
-            for (int j = 0; j < 50; j++) {
+        for (int row = 0; row < Map.ARRAYSIZE; row++) {
+            for (int col = 0; col < Map.ARRAYSIZE; col++) {
             	if(j > 20){
-            		tiles[i][j] = Tile.GRASS;
+            		dungeonMap.tileArray[row][col] = Tile.GRASS;
             	}
-            	else if(i > 20 && i < 31 && j > 10){
-            		tiles[i][j] = Tile.NONE;
+            	else if(row > 20 && row < 31 && col > 10){
+            		dungeonMap.tileArray[row][col] = Tile.NONE;
             	}
             	else{
-            		tiles[i][j] = Tile.ROCK;
+            		dungeonMap.tileArray[row][col] = Tile.ROCK;
             	}
             }
         }
@@ -62,17 +66,17 @@ public class GameController implements KeyListener{
         dungeonFrame.createBufferStrategy(2);
         buffer = dungeonFrame.getBufferStrategy();
 
-        loop();
+        gameLoop();
     }
 
-    public void loop()
+    private void gameLoop()
     {
         while (true) {
             Graphics2D tileGraphics = (Graphics2D) buffer.getDrawGraphics();
             
-            for (int i = 0; i < 50; i++) {
-                for (int j = 0; j < 50; j++) {
-                    switch (tiles[i][j]) {
+            for (int row = 0; row < Map.ARRAYSIZE; row++) {
+                for (int col = 0; col < Map.ARRAYSIZE; col++) {
+                    switch (dungeonMap.tileArray[row][col]) {
                         case GRASS:
                             tileGraphics.setColor(Color.GREEN);
                             break;
@@ -83,16 +87,22 @@ public class GameController implements KeyListener{
                         	tileGraphics.setColor(Color.BLACK);
                         	break;
                     }
-                    tileGraphics.fillRect(i*12, j*12, 50, 50);
+                    tileGraphics.fillRect(row*12, col*12, Map.ARRAYSIZE, Map.ARRAYSIZE);
                 }
             }
             tileGraphics.setColor(Color.RED);
-            tileGraphics.fillRect(x*12+6, y*12+6, 50, 50);
+            tileGraphics.fillRect(x*12+6, y*12+6, Map.ARRAYSIZE, Map.ARRAYSIZE);
 			
             buffer.show();
             tileGraphics.dispose();
         }
     }
+    
+    /*private void generateMaps(){
+    	for(int mapNumber = 0; mapNumber < 10; mapNumber++){
+    		Map dungeonMap = 
+    	}
+    }*/
 
     public static void main(String[]args)
     {
