@@ -68,12 +68,6 @@ public class GameController implements KeyListener{
         dungeonFrame.createBufferStrategy(2);
         buffer = dungeonFrame.getBufferStrategy();
 
-        try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-        
         gameLoop();
     }
 
@@ -103,6 +97,12 @@ public class GameController implements KeyListener{
 			
             buffer.show();
             tileGraphics.dispose();
+            
+            try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
         }
     }
     
