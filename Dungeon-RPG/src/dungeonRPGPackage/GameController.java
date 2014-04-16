@@ -94,7 +94,12 @@ public class GameController implements KeyListener{
             }
             tileGraphics.setColor(Color.RED);
             tileGraphics.fillRect(hero.getX()*tileSize, hero.getY()*tileSize, tileSize, tileSize);
-			
+            
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
             buffer.show();
             tileGraphics.dispose();
         }
