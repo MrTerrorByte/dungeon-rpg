@@ -82,22 +82,17 @@ public class GameController implements KeyListener{
     {
         while (true) {
             Graphics2D tileGraphics = (Graphics2D) buffer.getDrawGraphics();
-            /*BufferedImage img = null;
+            BufferedImage img = null;
             try {
-                img = ImageIO.read(new File("images/male hero.png"));
+                img = ImageIO.read(new File("src/images/male hero.png"));
             } catch (IOException e) {
             	System.out.println("Doesnt exist");
-            }*/
+            }
             
-            Image image = null;
-            
-           // try {
-            	URL url = getClass().getResource("/images/male hero.png");
-            	image = Toolkit.getDefaultToolkit().createImage(url);
-            //}catch (IOException e){
-            //	System.out.println("Image doesnt exist");
-            //}
-            /*for (int row = 0; row < Map.ARRAYSIZE; row++) {
+            /*URL url = getClass().getResource("/images/cave.png");
+            Image image = Toolkit.getDefaultToolkit().getImage(url);
+            */
+            for (int row = 0; row < Map.ARRAYSIZE; row++) {
                 for (int col = 0; col < Map.ARRAYSIZE; col++) {
                     switch (hero.getMap().getTileArray()[row][col]) {
                         case GRASS:
@@ -112,11 +107,11 @@ public class GameController implements KeyListener{
                     }
                     tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
                 }
-            }*/
+            }
             //tileGraphics.setColor(Color.RED);
             //tileGraphics.fillRect(hero.getX()*tileSize, hero.getY()*tileSize, tileSize, tileSize);
-			//tileGraphics.drawImage(image, hero.getX()*tileSize, hero.getY()*tileSize, null);
-            tileGraphics.drawImage(image, 0, 0, null);
+			tileGraphics.drawImage(img, hero.getX()*tileSize, hero.getY()*tileSize, null);
+            
             buffer.show();
             tileGraphics.dispose();
             
