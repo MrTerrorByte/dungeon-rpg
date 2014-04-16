@@ -8,7 +8,8 @@ import dungeonRPGPackage.Map.Tile;
  *
  */
 public class Hero {
-	private Map map;
+	private Map map;				//current Map Hero is on
+	private Map dungeonMaps[];		//all the Maps in the dungeon in order
 	private double maxHealth;		//the maximum health the hero has
 	private double currHealth;		//how much health the hero currently has
 	private int potionCount;		//a hero starts with 5 potions, but can buy more later

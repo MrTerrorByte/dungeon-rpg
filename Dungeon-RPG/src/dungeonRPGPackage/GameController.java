@@ -35,10 +35,10 @@ public class GameController implements KeyListener{
     public GameController()
     {
     	//dungeonMaps = new Map[10];
-    	Map dungeonMap = new Map(5, 11, 5, 3);
+    	StartMap startMap = new StartMap(5, 11, 6, 3);
     	Weapon weapon = new Weapon("Sword","Sword",0,0);
     	Shield shield = new Shield("Shield","Shield",0,0);
-    	hero = new Hero("Hero", dungeonMap, weapon, shield);
+    	hero = new Hero("Hero", startMap, weapon, shield);
         
         dungeonPanel.setName("Dungeon-RPG");
         dungeonPanel.setLayout(null);
@@ -57,22 +57,7 @@ public class GameController implements KeyListener{
 			}
 		});
 
-        for (int row = 0; row < Map.ARRAYSIZE; row++) {
-            for (int col = 0; col < Map.ARRAYSIZE; col++) {
-            	if(col > 5){
-            		hero.getMap().getTileArray()[row][col] = Tile.GRASS;
-            	}
-            	else if(row > 4 && row < 7 && col > 3){
-            		hero.getMap().getTileArray()[row][col] = Tile.NONE;
-            	}
-            	else{
-            		hero.getMap().getTileArray()[row][col] = Tile.ROCK;
-            	}
-            }
-        }
-
-        //dungeonFrame.createBufferStrategy(2);
-        //buffer = dungeonFrame.getBufferStrategy();
+        
         
         dungeonFrame.add(dungeonPanel);
         dungeonFrame.setSize(Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
@@ -80,7 +65,6 @@ public class GameController implements KeyListener{
 		dungeonFrame.setVisible(true);
         dungeonFrame.validate();
         dungeonPanel.requestFocus();
-        //gameLoop();
     }
 
     
@@ -139,6 +123,7 @@ public class GameController implements KeyListener{
 		
 	}
 
+	@SuppressWarnings("serial")
 	private class StartPanel extends JPanel{
 		@Override
 		public void paint(Graphics g){
