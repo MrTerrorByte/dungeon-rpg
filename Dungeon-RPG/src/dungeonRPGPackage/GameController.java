@@ -3,17 +3,13 @@ package dungeonRPGPackage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -27,7 +23,6 @@ import dungeonRPGPackage.Map.Tile;
  *
  */
 public class GameController implements KeyListener{
-	private BufferStrategy buffer;
 	private Hero hero;
 	private int tileSize = Map.FRAMEWIDTH/Map.ARRAYSIZE;
 	private JFrame dungeonFrame = new JFrame();
