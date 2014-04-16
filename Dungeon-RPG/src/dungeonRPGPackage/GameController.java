@@ -119,6 +119,12 @@ public class GameController implements KeyListener{
             tileGraphics.drawImage(image, 0, 0, null);
             buffer.show();
             tileGraphics.dispose();
+            
+            try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
         }
     }
     
