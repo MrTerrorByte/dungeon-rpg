@@ -1,5 +1,7 @@
 package dungeonRPGPackage;
 
+import java.awt.image.BufferedImage;
+
 import dungeonRPGPackage.Map.Tile;
 
 /**
@@ -13,12 +15,12 @@ public class Hero {
 	private double maxHealth;		//the maximum health the hero has
 	private double currHealth;		//how much health the hero currently has
 	private int potionCount;		//a hero starts with 5 potions, but can buy more later
-	private Potion potionArray[];	//array that holds all the potions
 	private String name;			//hero's name, picked by user
 	private int x,y;				//hero's x and y coordinate on the map
 	private Weapon weapon;			//hero's equipped weapon
 	private Shield shield;			//hero's equipped shield
 	private int gold;				//how much gold the hero has
+	private BufferedImage image;
 	
 	/**
 	 * Constructor for hero: sets default maxHealth value to 100 and initializes the inventory.
@@ -32,20 +34,9 @@ public class Hero {
 		this.shield = shield;
 		this.map = map;
 		this.potionCount = 5;
-		this.potionArray = new Potion[5];
-		addPotions();
 		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
 		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
 		this.gold = 1000;
-	}
-	
-	/**
-	 * initializes the potions array.
-	 */
-	public void addPotions(){
-		for(int index = 0; index < potionArray.length; index++){
-			potionArray[index] = new Potion("potion","heals 25% hp",0.25);
-		}
 	}
 	
 	/**
@@ -91,10 +82,6 @@ public class Hero {
 		}
 		
 		return true;
-	}
-	
-	public Potion[] getPotionArray(){
-		return this.potionArray;
 	}
 	
 	public int getPotionCount(){
@@ -165,5 +152,13 @@ public class Hero {
 	
 	public Shield getShield(){
 		return this.shield;
+	}
+	
+	public BufferedImage getImage(){
+		return image;
+	}
+	
+	public void setImage(BufferedImage image){
+		this.image = image;
 	}
 }
