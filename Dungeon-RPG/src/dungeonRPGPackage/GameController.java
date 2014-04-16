@@ -82,35 +82,41 @@ public class GameController implements KeyListener{
     {
         while (true) {
             Graphics2D tileGraphics = (Graphics2D) buffer.getDrawGraphics();
-            BufferedImage img = null;
+            BufferedImage heroImage = null;
+            BufferedImage grassImage = null;
             try {
-                img = ImageIO.read(new File("src/images/male hero.png"));
+                heroImage = ImageIO.read(new File("src/images/male hero.png"));
             } catch (IOException e) {
-            	System.out.println("Doesnt exist");
+            	System.out.println("Hero image Doesnt exist");
+            }
+            try {
+                grassImage = ImageIO.read(new File("src/images/grass.png"));
+            } catch (IOException e) {
+            	System.out.println("Hero image Doesnt exist");
             }
             
-            /*URL url = getClass().getResource("/images/cave.png");
-            Image image = Toolkit.getDefaultToolkit().getImage(url);
-            */
             for (int row = 0; row < Map.ARRAYSIZE; row++) {
                 for (int col = 0; col < Map.ARRAYSIZE; col++) {
                     switch (hero.getMap().getTileArray()[row][col]) {
                         case GRASS:
                             tileGraphics.setColor(Color.GREEN);
+                            tileGraphics.drawImage(grassImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
                             break;
                         case ROCK:
                             tileGraphics.setColor(Color.GRAY);
+                            tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
                             break;
                         case NONE:
                         	tileGraphics.setColor(Color.BLACK);
+                        	tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
                         	break;
                     }
-                    tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
+                    //tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
                 }
             }
             //tileGraphics.setColor(Color.RED);
             //tileGraphics.fillRect(hero.getX()*tileSize, hero.getY()*tileSize, tileSize, tileSize);
-			tileGraphics.drawImage(img, hero.getX()*tileSize, hero.getY()*tileSize, null);
+			tileGraphics.drawImage(heroImage, hero.getX()*tileSize, hero.getY()*tileSize, null);
             
             buffer.show();
             tileGraphics.dispose();
