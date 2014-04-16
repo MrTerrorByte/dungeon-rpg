@@ -2,12 +2,19 @@ package dungeonRPGPackage;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import dungeonRPGPackage.Map.Tile;
@@ -75,8 +82,22 @@ public class GameController implements KeyListener{
     {
         while (true) {
             Graphics2D tileGraphics = (Graphics2D) buffer.getDrawGraphics();
+            /*BufferedImage img = null;
+            try {
+                img = ImageIO.read(new File("images/male hero.png"));
+            } catch (IOException e) {
+            	System.out.println("Doesnt exist");
+            }*/
             
-            for (int row = 0; row < Map.ARRAYSIZE; row++) {
+            Image image = null;
+            
+           // try {
+            	URL url = getClass().getResource("/images/male hero.png");
+            	image = Toolkit.getDefaultToolkit().createImage(url);
+            //}catch (IOException e){
+            //	System.out.println("Image doesnt exist");
+            //}
+            /*for (int row = 0; row < Map.ARRAYSIZE; row++) {
                 for (int col = 0; col < Map.ARRAYSIZE; col++) {
                     switch (hero.getMap().getTileArray()[row][col]) {
                         case GRASS:
@@ -91,10 +112,11 @@ public class GameController implements KeyListener{
                     }
                     tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
                 }
-            }
-            tileGraphics.setColor(Color.RED);
-            tileGraphics.fillRect(hero.getX()*tileSize, hero.getY()*tileSize, tileSize, tileSize);
-			
+            }*/
+            //tileGraphics.setColor(Color.RED);
+            //tileGraphics.fillRect(hero.getX()*tileSize, hero.getY()*tileSize, tileSize, tileSize);
+			//tileGraphics.drawImage(image, hero.getX()*tileSize, hero.getY()*tileSize, null);
+            tileGraphics.drawImage(image, 0, 0, null);
             buffer.show();
             tileGraphics.dispose();
         }
