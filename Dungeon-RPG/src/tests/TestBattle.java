@@ -16,7 +16,7 @@ public class TestBattle {
 
 	Weapon weapon = new Weapon("Sword","Sword",50,10);
 	Shield shield = new Shield("Shield","Shield",100,10);
-	Hero hero = new Hero("Jordan", weapon, shield);
+	Hero hero = new Hero("Jordan", false, weapon, shield);
 	
 	@Test
 	public void testEquip() {
