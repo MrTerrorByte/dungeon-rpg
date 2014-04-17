@@ -82,12 +82,18 @@ public class Hero {
 			if(this.x == map.getExitLocX() && this.y == map.getExitLocY()){
 				if(mapIndex < 2){
 					map = dungeonMaps[++mapIndex];
+					return 0;
 				}
 			}
 			else if(this.x == map.getEntranceLocX() && this.y == map.getEntranceLocY()){
 				if(mapIndex > 0){
 					map = dungeonMaps[--mapIndex];
+					return 0;
 				}
+			}
+			
+			if(mapIndex > 0 && Math.random()*100.0 <= 10.0){
+				return 1;
 			}
 			return 0;
 		}
@@ -190,5 +196,9 @@ public class Hero {
 	
 	public void setImage(BufferedImage image){
 		this.image = image;
+	}
+	
+	public int getMapIndex(){
+		return mapIndex;
 	}
 }

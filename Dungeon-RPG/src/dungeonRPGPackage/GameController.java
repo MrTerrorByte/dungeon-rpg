@@ -23,8 +23,8 @@ import javax.swing.JPanel;
 public class GameController implements KeyListener{
 	private Hero hero;
 	private int tileSize = Map.FRAMEWIDTH/Map.ARRAYSIZE;
-	private JFrame dungeonFrame = new JFrame("Dungeon RPG");
-    private DungeonPanel dungeonPanel = new DungeonPanel();
+	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
+    private static DungeonPanel dungeonPanel;
     private BufferedImage heroImage, grassImage, caveImage, floorImage;
     
     /**
@@ -32,8 +32,9 @@ public class GameController implements KeyListener{
      */
     public GameController()
     {
-    	Weapon weapon = new Weapon("Sword","Sword",0,0);
-    	Shield shield = new Shield("Shield","Shield",0,0);
+    	dungeonPanel = new DungeonPanel();
+    	Weapon weapon = new Weapon("Sword","Sword",50,10);
+    	Shield shield = new Shield("Shield","Shield",100,10);
     	hero = new Hero("Hero", weapon, shield);
         
     	heroImage = null;
@@ -85,12 +86,33 @@ public class GameController implements KeyListener{
         dungeonFrame.validate();
         dungeonPanel.requestFocus();
     }
-
+    
+    public static JFrame getDungeonFrame(){
+    	return dungeonFrame;
+    }
+    
+    public static DungeonPanel getDungeonPanel(){
+    	return dungeonPanel;
+    }
+    
     public static void main(String[]args)
     {
         new GameController();
     }
 
+    public void addBattlePanel(){
+    	Monster monster = new Monster("Reaper", hero.getMapIndex()-1, null);
+    	try {
+			monster.setImage(ImageIO.read(new File("src/images/death_scythe_front.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	dungeonFrame.remove(dungeonPanel);
+    	BattlePanel battlePanel = new BattlePanel(hero, monster);
+    	dungeonFrame.add(battlePanel);
+    	dungeonFrame.validate();
+    }
+    
 	@Override
 	/**
 	 * Handles movement when arrow keys are pressed and when the escape button is pressed
@@ -99,22 +121,30 @@ public class GameController implements KeyListener{
 	public void keyPressed(KeyEvent arg0) {
 		//press up key
 		if(arg0.getKeyCode() == KeyEvent.VK_UP){
-			hero.move(hero.getX(), hero.getY()-1);
+			if(hero.move(hero.getX(), hero.getY()-1) == 1){
+				addBattlePanel();
+			}
 			dungeonPanel.repaint();
 		}
 		//press down key
 		else if(arg0.getKeyCode() == KeyEvent.VK_DOWN){
-			hero.move(hero.getX(), hero.getY()+1);
+			if(hero.move(hero.getX(), hero.getY()+1) == 1){
+				addBattlePanel();
+			}
 			dungeonPanel.repaint();
 		}
 		//press left key
 		else if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
-			hero.move(hero.getX()-1, hero.getY());
+			if(hero.move(hero.getX()-1, hero.getY()) == 1){
+				addBattlePanel();
+			}
 			dungeonPanel.repaint();
 		}
 		//press right key
 		else if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
-			hero.move(hero.getX()+1, hero.getY());
+			if(hero.move(hero.getX()+1, hero.getY()) == 1){
+				addBattlePanel();
+			}
 			dungeonPanel.repaint();
 		}
 		//press esc
@@ -136,7 +166,7 @@ public class GameController implements KeyListener{
 	}
 
 	@SuppressWarnings("serial")
-	private class DungeonPanel extends JPanel{
+	public class DungeonPanel extends JPanel{
 		@Override
 		public void paint(Graphics g){
 	        this.requestFocus();

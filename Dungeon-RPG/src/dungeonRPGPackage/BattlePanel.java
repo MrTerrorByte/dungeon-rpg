@@ -10,8 +10,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import dungeonRPGPackage.GameController.DungeonPanel;
 
 public class BattlePanel extends JPanel implements ActionListener {
 	
@@ -25,6 +28,7 @@ public class BattlePanel extends JPanel implements ActionListener {
 	 * 
 	 * @param hero : the hero that we are loading
 	 * @param monster : the monster that we are loading
+	 * @param dungeonFrame 
 	 */
 	public BattlePanel(Hero hero, Monster monster){
 		this.hero = hero;
@@ -132,7 +136,15 @@ public class BattlePanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(attackButton.equals(e.getSource())){
-			Battle.attack(hero, monster, true);
+			if(Battle.attack(hero, monster, true) == 1){
+				JFrame dungeonFrame = GameController.getDungeonFrame();
+				DungeonPanel dungeonPanel = GameController.getDungeonPanel();
+				dungeonFrame.remove(this);
+				dungeonFrame.add(dungeonPanel);
+				dungeonFrame.validate();
+				dungeonPanel.repaint();
+				return;
+			}
 			
 			Battle.attack(hero, monster, false);
 			updateLabels();
