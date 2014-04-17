@@ -41,7 +41,7 @@ public class Hero {
 		this.gold = 1000;
 		
 		try {
-			this.image = ImageIO.read(new File("src/images/maleBackStanding"));
+			this.image = ImageIO.read(new File("src/images/maleBackStanding.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

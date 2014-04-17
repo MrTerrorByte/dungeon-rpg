@@ -62,12 +62,12 @@ public class GameController implements KeyListener{
         }
        
        
-        StartMenu startMenu = new StartMenu();
-        dungeonFrame.add(startMenu);
+        //StartMenu startMenu = new StartMenu();
+        //dungeonFrame.add(startMenu);
         //dungeonFrame.setUndecorated(true);
         dungeonPanel.setBounds(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
         //dungeonPanel.setLocationRelativeTo(null);
-        //dungeonPanel.setVisible(true);
+        dungeonPanel.setVisible(true);
         dungeonPanel.addKeyListener(this);
 
 		dungeonFrame.addWindowListener(new WindowAdapter() {
@@ -83,7 +83,7 @@ public class GameController implements KeyListener{
 		dungeonFrame.setResizable(false);
 		dungeonFrame.setVisible(true);
         dungeonFrame.validate();
-        //dungeonPanel.requestFocus();
+        dungeonPanel.requestFocus();
     }
 
     public static void main(String[]args)
