@@ -20,7 +20,7 @@ public class BattlePanel extends JPanel implements ActionListener {
 	
 	Hero hero;
 	Monster monster;
-	private JLabel heroImage, monsterImage, heroName, monsterName, heroHP, monsterHP, monsterLevel;
+	private JLabel heroImage, monsterImage, heroName, monsterName, heroHP, monsterHP, monsterLevel, shieldLevel, weaponLevel;
 	private JButton attackButton, potionButton;
 	
 	/**
@@ -57,6 +57,11 @@ public class BattlePanel extends JPanel implements ActionListener {
 		monsterLevel = new JLabel();
 		monsterLevel.setText("Lv"+monster.getLevel());
 		
+		shieldLevel = new JLabel();
+		shieldLevel.setText("Shield Lv "+hero.getShield().getLevel()+" Exp: "+hero.getShield().getCurrExp()+"/"+hero.getShield().getReqExp());
+		weaponLevel = new JLabel();
+		weaponLevel.setText("Weapon Lv "+hero.getWeapon().getLevel()+" Exp: "+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp());
+		
 		attackButton = new JButton("Attack");
 		attackButton.addActionListener(this);
 		potionButton = new JButton(hero.getPotionCount()+"x potions left");
@@ -79,23 +84,27 @@ public class BattlePanel extends JPanel implements ActionListener {
 		this.add(monsterLevel);
 		this.add(attackButton);
 		this.add(potionButton);
+		this.add(shieldLevel);
+		this.add(weaponLevel);
 	}
 	
 	/**
 	 * Sets the sizes and positions for the labels and buttons
 	 */
 	public void initPositions(){
-		monsterName.setBounds(30, 30, 200, 20);
+		monsterName.setBounds(50, 30, 200, 20);
 		monsterLevel.setBounds(50, 50, 2000, 20);
 		monsterHP.setBounds(50, 70, 200, 20);
 		monsterImage.setBounds(400, 50, 150, 150);
 		
-		heroName.setBounds(400, 300, 200, 20);
-		heroHP.setBounds(420, 320, 200, 20);
-		heroImage.setBounds(30, 320, 150, 150);
-		
 		attackButton.setBounds(30, 500, 150, 30);
 		potionButton.setBounds(200, 500, 150, 30);
+		
+		shieldLevel.setBounds(350, 320, 200, 20);
+		weaponLevel.setBounds(350, 340, 200, 20);
+		heroName.setBounds(350, 300, 200, 20);
+		heroHP.setBounds(350, 360, 200, 20);
+		heroImage.setBounds(30, 300, 150, 150);
 	}
 	
 	/**
@@ -130,7 +139,9 @@ public class BattlePanel extends JPanel implements ActionListener {
 		
 		potionButton.setText(hero.getPotionCount()+"x potions left");
 		
-		heroImage.setLocation(30, 320);
+		shieldLevel.setText("Shield Lv "+hero.getShield().getLevel()+" Exp:"+hero.getShield().getCurrExp()+"/"+hero.getShield().getReqExp());
+		weaponLevel.setText("Weapon Lv "+hero.getWeapon().getLevel()+" Exp:"+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp());
+		
 	}
 	
 	@Override
@@ -155,7 +166,7 @@ public class BattlePanel extends JPanel implements ActionListener {
 			updateLabels();
 			
 			try {
-				Thread.sleep(500);
+				Thread.sleep(200);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
