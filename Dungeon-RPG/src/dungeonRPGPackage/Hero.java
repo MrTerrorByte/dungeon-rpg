@@ -24,14 +24,18 @@ public class Hero {
 	private Weapon weapon;			//hero's equipped weapon
 	private Shield shield;			//hero's equipped shield
 	private int gold;				//how much gold the hero has
-	private BufferedImage image;
+	private BufferedImage image;	//image representing the Hero
 	private int mapIndex;			//index in Dungeon array that Hero is in
+	private boolean gender;			//gender of the Hero
+	
+	final static boolean MALE = true;
+	final static boolean FEMALE = false;
 	
 	/**
 	 * Constructor for hero: sets default maxHealth value to 100 and initializes the inventory.
 	 * Also equips a shield and weapon.
 	 */
-	public Hero(String name, Weapon weapon, Shield shield){
+	public Hero(String name, boolean gender, Weapon weapon, Shield shield){
 		this.name = name;
 		this.maxHealth = 100+shield.getHpBoost();
 		this.currHealth = maxHealth;
@@ -39,12 +43,21 @@ public class Hero {
 		this.shield = shield;
 		this.potionCount = 5;
 		this.gold = 1000;
+		this.gender = gender;
 		
-		try {
-			this.image = ImageIO.read(new File("src/images/maleBackStanding.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(gender){
+			try {
+				this.image = ImageIO.read(new File("src/images/maleBackStanding.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			try {
+				this.image = ImageIO.read(new File("src/images/femaleBackStanding.png"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
 		}
 		
 		//setup Dungeon Maps
@@ -58,6 +71,40 @@ public class Hero {
 		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
 	}
 	
+	public boolean isGender() {
+		return gender;
+	}
+
+	public void setGender(boolean gender) {
+		this.gender = gender;
+		if(gender){
+			try {
+				this.image = ImageIO.read(new File("src/images/maleBackStanding.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			try {
+				this.image = ImageIO.read(new File("src/images/femaleBackStanding.png"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
+	public void setShield(Shield shield) {
+		this.shield = shield;
+	}
+
 	/**
 	 * When the shield levels up, the hero's hp must be increased.
 	 */
