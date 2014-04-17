@@ -34,6 +34,8 @@ import javax.swing.JTextField;
  */
 public class GameController implements KeyListener{
 	private Hero hero;
+	private Weapon weapon = new Weapon("Sword","Sword",50,10);
+	private Shield shield = new Shield("Shield","Shield",100,10);
 	private int tileSize = Map.FRAMEWIDTH/Map.ARRAYSIZE;
 	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
     private static DungeonPanel dungeonPanel;
@@ -44,10 +46,7 @@ public class GameController implements KeyListener{
      */
     public GameController()
     {   
-    	Weapon weapon = new Weapon("Sword","Sword",50,10);
-    	Shield shield = new Shield("Shield","Shield",100,10);
-    	hero = new Hero(null, false, weapon, shield);
-    	
+    	hero = new Hero(null, true, weapon, shield);
         grassImage = null;
         caveImage = null;
         floorImage = null;
@@ -278,7 +277,7 @@ public class GameController implements KeyListener{
 			// add start button
 			JButton startButton = new JButton("Start Game");
 			startButton.setVerticalTextPosition(AbstractButton.CENTER);
-			startButton.setPreferredSize(new Dimension(100, 40));
+			startButton.setPreferredSize(new Dimension(200, 40));
 			startButton.setActionCommand("start");
 			startButton.addActionListener(this);
 			constraints.gridx = 1;
@@ -304,11 +303,11 @@ public class GameController implements KeyListener{
 			//radio buttons for choosing Hero
 			if("Male".equals(event.getActionCommand())) {
 				heroImageLabel.setIcon(maleIcon);
-				hero.setGender(Hero.MALE);
+				hero = new Hero(null, true, weapon, shield);
 			}
 			if("Female".equals(event.getActionCommand())) {
 				heroImageLabel.setIcon(femaleIcon);
-				hero.setGender(Hero.FEMALE);
+				hero = new Hero(null, false, weapon, shield);
 			}
 		}
 	}
