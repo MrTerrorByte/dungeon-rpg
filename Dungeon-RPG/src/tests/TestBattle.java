@@ -17,12 +17,12 @@ public class TestBattle {
 	Map map = new Map(0, 0, 25, 25);
 	Weapon weapon = new Weapon("Sword","Sword",50,10);
 	Shield shield = new Shield("Shield","Shield",100,10);
-	Hero hero = new Hero("Jordan", weapon, shield);
+	Hero hero = new Hero("Jordan", map, weapon, shield);
 	
 	@Test
 	public void testEquip() {
 		assertEquals(200, (int)hero.getCurrHealth()); //with shield's hpboost
-		Monster monster = new Monster(0);
+		Monster monster = new Monster("", 0, null);
 		
 		boolean Turn = true;
 		while(monster.getCurrHealth() > 0){
@@ -34,7 +34,7 @@ public class TestBattle {
 		assertEquals(50, shield.getCurrExp()); //shield gained exp
 		assertEquals(1100, hero.getGold());
 		
-		monster = new Monster(0);
+		monster = new Monster(null, 0, null);
 		Turn = true;
 		while(monster.getCurrHealth() > 0){
 			Battle.attack(hero, monster, Turn);
@@ -50,8 +50,7 @@ public class TestBattle {
 	
 	@Test
 	public void testPotion(){
-		Potion potion = hero.getPotionArray()[0];
-		Monster monster = new Monster(1);
+		Monster monster = new Monster(null, 1, null);
 		
 		boolean Turn = false;
 		while(monster.getCurrHealth() > 0){
@@ -60,11 +59,11 @@ public class TestBattle {
 		}
 		
 		assertEquals(100, (int)hero.getCurrHealth()); //monster at lvl 1 hit hero once in the battle
-		Battle.usePotion(hero, potion);
+		Battle.usePotion(hero, new Potion("", "", 0.25));
 		assertEquals(150, (int)hero.getCurrHealth());
-		Battle.usePotion(hero, potion);
+		Battle.usePotion(hero, new Potion("", "", 0.25));
 		assertEquals(200, (int)hero.getCurrHealth());
-		Battle.usePotion(hero, potion);
+		Battle.usePotion(hero, new Potion("", "", 0.25));
 		assertEquals(200, (int)hero.getCurrHealth()); //can't heal pass max hp
 	}
 

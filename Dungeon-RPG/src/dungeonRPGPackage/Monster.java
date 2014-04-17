@@ -11,11 +11,12 @@ public class Monster {
 	private int gold;				//how much gold it gives when it's defeated
 	private int expGain;			//how much exp it gives when it's defeated
 	private BufferedImage image;
+	private String name;
 	
 	/**
 	 * Constructor for monster: sets default maxHealth value to 100 multiplied by its level.
 	 */
-	public Monster(int level, BufferedImage image){
+	public Monster(String name, int level, BufferedImage image){
 		this.level = level;
 		this.attack = 5*Math.pow(level, 2) + 20;
 		this.maxHealth = 100*(Math.pow(this.level, 2))+100;
@@ -23,6 +24,7 @@ public class Monster {
 		this.expGain = 10*(level)+50;
 		this.currHealth = this.maxHealth;
 		this.image = image;
+		this.name = name;
 	}
 	
 	public int getExpGain(){
@@ -59,5 +61,13 @@ public class Monster {
 	
 	public void setImage(BufferedImage image){
 		this.image = image;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getMaxHealth() {
+		return maxHealth;
 	}
 }

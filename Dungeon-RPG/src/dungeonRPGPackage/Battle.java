@@ -33,7 +33,7 @@ public class Battle {
 	 * @param potion : the potion being used
 	 */
 	public static void usePotion(Hero hero, Potion potion){
-		if(hero.getPotionCount() == 0){
+		if(hero.getPotionCount() <= 0){
 			return;
 		}
 		hero.setPotionCount(hero.getPotionCount()-1);
