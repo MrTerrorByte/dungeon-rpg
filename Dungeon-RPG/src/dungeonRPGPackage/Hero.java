@@ -37,9 +37,10 @@ public class Hero {
 		this.gold = 1000;
 		
 		//setup Dungeon Maps
-		this.dungeonMaps = new Map[10];
+		this.dungeonMaps = new Map[3];
 		dungeonMaps[0] = new StartMap(5, 11, 6, 4);
-    	dungeonMaps[1] = new DungeonMap1(6, 4, 11, 11);
+    	dungeonMaps[1] = new DungeonMap1(6, 4, 11, 5);
+    	dungeonMaps[2] = new Map(11, 5, 11, 11);
 		this.map = dungeonMaps[0];					//set Hero's initial Map to the start map
 		this.mapIndex = 0;
 		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
@@ -68,10 +69,14 @@ public class Hero {
 			this.y = destY;
 			//if Hero is at the exit location of the current map, move to next map
 			if(this.x == map.getExitLocX() && this.y == map.getExitLocY()){
-				map = dungeonMaps[++mapIndex];
+				if(mapIndex < 2){
+					map = dungeonMaps[++mapIndex];
+				}
 			}
 			else if(this.x == map.getEntranceLocX() && this.y == map.getEntranceLocY()){
-				map = dungeonMaps[--mapIndex];
+				if(mapIndex > 0){
+					map = dungeonMaps[--mapIndex];
+				}
 			}
 			return 0;
 		}
