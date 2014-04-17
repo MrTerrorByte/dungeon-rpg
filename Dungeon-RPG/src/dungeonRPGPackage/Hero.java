@@ -1,10 +1,6 @@
 package dungeonRPGPackage;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import dungeonRPGPackage.Map.Tile;
 
@@ -25,28 +21,30 @@ public class Hero {
 	private Shield shield;			//hero's equipped shield
 	private int gold;				//how much gold the hero has
 	private BufferedImage image;
-	private int mapIndex;
+	private int mapIndex;			//index in Dungeon array that Hero is in
+	
 	/**
 	 * Constructor for hero: sets default maxHealth value to 100 and initializes the inventory.
 	 * Also equips a shield and weapon.
 	 */
-	public Hero(String name, Map map, Weapon weapon, Shield shield){
+	public Hero(String name, Weapon weapon, Shield shield){
 		this.name = name;
 		this.maxHealth = 100+shield.getHpBoost();
 		this.currHealth = maxHealth;
 		this.weapon = weapon;
 		this.shield = shield;
-		this.map = map;
 		this.potionCount = 5;
-		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
-		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
 		this.gold = 1000;
 		
-		try {
-			this.image = ImageIO.read(new File("src/images/maleBackStanding.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//setup Dungeon Maps
+		this.dungeonMaps = new Map[3];
+		dungeonMaps[0] = new StartMap(5, 11, 6, 4);
+    	dungeonMaps[1] = new DungeonMap1(6, 4, 11, 5);
+    	dungeonMaps[2] = new Map(11, 5, 11, 11);
+		this.map = dungeonMaps[0];					//set Hero's initial Map to the start map
+		this.mapIndex = 0;
+		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
+		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
 	}
 	
 	/**
@@ -69,6 +67,17 @@ public class Hero {
 		else{
 			this.x = destX;
 			this.y = destY;
+			//if Hero is at the exit location of the current map, move to next map
+			if(this.x == map.getExitLocX() && this.y == map.getExitLocY()){
+				if(mapIndex < 2){
+					map = dungeonMaps[++mapIndex];
+				}
+			}
+			else if(this.x == map.getEntranceLocX() && this.y == map.getEntranceLocY()){
+				if(mapIndex > 0){
+					map = dungeonMaps[--mapIndex];
+				}
+			}
 			return 0;
 		}
 	}
@@ -163,8 +172,12 @@ public class Hero {
 	public Shield getShield(){
 		return this.shield;
 	}
-
-	public BufferedImage getImage() {
+	
+	public BufferedImage getImage(){
 		return image;
+	}
+	
+	public void setImage(BufferedImage image){
+		this.image = image;
 	}
 }
