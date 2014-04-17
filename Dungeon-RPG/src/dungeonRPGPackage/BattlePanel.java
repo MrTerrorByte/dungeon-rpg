@@ -16,6 +16,11 @@ import javax.swing.JPanel;
 
 import dungeonRPGPackage.GameController.DungeonPanel;
 
+/**
+ * This is the panel where battles take place
+ * @author jordan
+ *
+ */
 public class BattlePanel extends JPanel implements ActionListener {
 	
 	Hero hero;

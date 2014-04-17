@@ -99,6 +99,10 @@ public class GameController implements KeyListener{
         new GameController();
     }
 
+    /**
+     * When a battle arises, load in the monster image. Then remove the current panel
+     * to add in the battle panel. Then validate the frame, so it reflects the change.
+     */
     public void addBattlePanel(){
     	Monster monster = new Monster("Reaper", hero.getMapIndex()-1, null);
     	try {
@@ -163,7 +167,12 @@ public class GameController implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * This panel is for the map
+	 * @author jordan
+	 *
+	 */
 	@SuppressWarnings("serial")
 	public class DungeonPanel extends JPanel{
 		@Override
