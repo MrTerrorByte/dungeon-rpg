@@ -1,6 +1,10 @@
 package dungeonRPGPackage;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import dungeonRPGPackage.Map.Tile;
 
@@ -35,6 +39,13 @@ public class Hero {
 		this.shield = shield;
 		this.potionCount = 5;
 		this.gold = 1000;
+		
+		try {
+			this.image = ImageIO.read(new File("src/images/maleBackStanding"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//setup Dungeon Maps
 		this.dungeonMaps = new Map[3];
