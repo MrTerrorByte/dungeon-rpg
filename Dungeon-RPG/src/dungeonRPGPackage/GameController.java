@@ -15,8 +15,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import dungeonRPGPackage.Map.Tile;
-
 /**
  * Main Game Loop
  * @author rrienton
@@ -25,22 +23,45 @@ import dungeonRPGPackage.Map.Tile;
 public class GameController implements KeyListener{
 	private Hero hero;
 	private int tileSize = Map.FRAMEWIDTH/Map.ARRAYSIZE;
-	private JFrame dungeonFrame = new JFrame();
-    private StartPanel dungeonPanel = new StartPanel();
-	//private Map dungeonMaps[];
+	private JFrame dungeonFrame = new JFrame("Dungeon RPG");
+    private DungeonPanel dungeonPanel = new DungeonPanel();
+    private BufferedImage heroImage, grassImage, caveImage, floorImage;
     
     /**
      * Constructs a GameController, which means the JFrame that displays the Map and Hero.
      */
     public GameController()
     {
-    	//dungeonMaps = new Map[10];
-    	StartMap startMap = new StartMap(5, 11, 6, 3);
     	Weapon weapon = new Weapon("Sword","Sword",0,0);
     	Shield shield = new Shield("Shield","Shield",0,0);
-    	hero = new Hero("Hero", startMap, weapon, shield);
+    	hero = new Hero("Hero", weapon, shield);
         
-        dungeonPanel.setName("Dungeon-RPG");
+    	heroImage = null;
+        grassImage = null;
+        caveImage = null;
+        floorImage = null;
+        try {
+            heroImage = ImageIO.read(new File("src/images/maleBackStanding.png"));
+        } catch (IOException e) {
+        	System.out.println("Hero image Doesnt exist");
+        }
+        try {
+            grassImage = ImageIO.read(new File("src/images/grass.png"));
+        } catch (IOException e) {
+        	System.out.println("Grass image Doesnt exist");
+        }
+        try {
+            floorImage = ImageIO.read(new File("src/images/floor.png"));
+        } catch (IOException e) {
+        	System.out.println("Floor image Doesnt exist");
+        }
+        try {
+            caveImage = ImageIO.read(new File("src/images/cave.png"));
+        } catch (IOException e) {
+        	System.out.println("Cave image Doesnt exist");
+        }
+       
+    	
         dungeonPanel.setLayout(null);
         
         dungeonFrame.setResizable(false);
@@ -66,13 +87,6 @@ public class GameController implements KeyListener{
         dungeonFrame.validate();
         dungeonPanel.requestFocus();
     }
-
-    
-    /*private void generateMaps(){
-    	for(int mapNumber = 0; mapNumber < 10; mapNumber++){
-    		Map dungeonMap = 
-    	}
-    }*/
 
     public static void main(String[]args)
     {
@@ -124,39 +138,23 @@ public class GameController implements KeyListener{
 	}
 
 	@SuppressWarnings("serial")
-	private class StartPanel extends JPanel{
+	private class DungeonPanel extends JPanel{
 		@Override
 		public void paint(Graphics g){
-			BufferedImage heroImage = null;
-            BufferedImage grassImage = null;
-            BufferedImage caveImage = null;
-            try {
-                heroImage = ImageIO.read(new File("src/images/maleBackStanding.png"));
-            } catch (IOException e) {
-            	System.out.println("Hero image Doesnt exist");
-            }
-            try {
-                grassImage = ImageIO.read(new File("src/images/grass.png"));
-            } catch (IOException e) {
-            	System.out.println("Grass image Doesnt exist");
-            }
-            try {
-                caveImage = ImageIO.read(new File("src/images/cave.png"));
-            } catch (IOException e) {
-            	System.out.println("Cave image Doesnt exist");
-            }
-            
+	        this.requestFocus();
             Graphics2D tileGraphics = (Graphics2D) g;
             
             for (int row = 0; row < Map.ARRAYSIZE; row++) {
                 for (int col = 0; col < Map.ARRAYSIZE; col++) {
                     switch (hero.getMap().getTileArray()[row][col]) {
                         case GRASS:
-                            tileGraphics.setColor(Color.GREEN);
                             tileGraphics.drawImage(grassImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
                             break;
                         case ROCK:
                         	tileGraphics.drawImage(caveImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        	break;
+                        case FLOOR:
+                        	tileGraphics.drawImage(floorImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
                         	break;
                         case NONE:
                         	tileGraphics.setColor(Color.BLACK);

@@ -8,7 +8,7 @@ public class Map {
 	
 	//Enum for Tile
 	public enum Tile{
-		GRASS, ROCK, NONE
+		GRASS, ROCK, NONE, FLOOR,
 	}
 	
 	public static final int FRAMEWIDTH = 600, FRAMEHEIGHT = 600, ARRAYSIZE = 12;
@@ -42,7 +42,7 @@ public class Map {
 		this.tileArray = new Tile[ARRAYSIZE][ARRAYSIZE];
 		for(int row=0; row < width; row++)
 			for(int col=0; col < height; col++){
-				this.tileArray[row][col] = Tile.ROCK;
+				this.tileArray[row][col] = Tile.FLOOR;
 			}
 	}
 

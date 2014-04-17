@@ -20,7 +20,7 @@ public class TestHero {
 	Map map = new Map(0, 0, 25, 25);
 	Weapon weapon = new Weapon("Sword","Sword",0,0);
 	Shield shield = new Shield("Shield","Shield",0,0);
-	Hero hero = new Hero("Jordan", map, weapon, shield);
+	Hero hero = new Hero("Jordan", weapon, shield);
 	
 	@Test
 	/**

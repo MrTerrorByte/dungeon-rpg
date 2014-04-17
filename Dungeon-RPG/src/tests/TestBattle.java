@@ -17,7 +17,7 @@ public class TestBattle {
 	Map map = new Map(0, 0, 25, 25);
 	Weapon weapon = new Weapon("Sword","Sword",50,10);
 	Shield shield = new Shield("Shield","Shield",100,10);
-	Hero hero = new Hero("Jordan", map, weapon, shield);
+	Hero hero = new Hero("Jordan", weapon, shield);
 	
 	@Test
 	public void testEquip() {
