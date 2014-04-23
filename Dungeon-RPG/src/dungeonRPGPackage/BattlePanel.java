@@ -63,9 +63,9 @@ public class BattlePanel extends JPanel implements ActionListener {
 		monsterLevel.setText("Lv"+monster.getLevel());
 		
 		shieldLevel = new JLabel();
-		shieldLevel.setText("Shield Lv "+hero.getShield().getLevel()+" Exp: "+hero.getShield().getCurrExp()+"/"+hero.getShield().getReqExp());
 		weaponLevel = new JLabel();
-		weaponLevel.setText("Weapon Lv "+hero.getWeapon().getLevel()+" Exp: "+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp());
+		shieldLevel.setText("Shield Lv "+hero.getShield().getLevel()+" Exp:"+hero.getShield().getCurrExp()+"/"+hero.getShield().getReqExp());
+		weaponLevel.setText("Weapon Lv "+hero.getWeapon().getLevel()+" Exp:"+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp());
 		
 		attackButton = new JButton("Attack");
 		attackButton.addActionListener(this);
