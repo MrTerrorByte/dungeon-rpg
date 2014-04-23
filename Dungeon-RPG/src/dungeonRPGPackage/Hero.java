@@ -61,9 +61,10 @@ public class Hero {
 		}
 		
 		//setup Dungeon Maps
+		MapGenerator generator = new MapGenerator();
 		this.dungeonMaps = new Map[3];
-		dungeonMaps[0] = new StartMap(5, 11, 6, 4);
-    	dungeonMaps[1] = new DungeonMap1(6, 4, 11, 5);
+    	dungeonMaps[0] = generator.generateMap("src/maps/startmap.txt", 5, 11, 6, 4);
+		dungeonMaps[1] = new DungeonMap1(6, 4, 11, 5);
     	dungeonMaps[2] = new Map(11, 5, 11, 11);
 		this.map = dungeonMaps[0];					//set Hero's initial Map to the start map
 		this.mapIndex = 0;
