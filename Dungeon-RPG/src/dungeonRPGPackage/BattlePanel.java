@@ -3,16 +3,22 @@ package dungeonRPGPackage;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import dungeonRPGPackage.GameController.DungeonPanel;
 
@@ -23,11 +29,11 @@ import dungeonRPGPackage.GameController.DungeonPanel;
  */
 public class BattlePanel extends JPanel implements ActionListener {
 	
-	Hero hero;
-	Monster monster;
+	private Hero hero;
+	private Monster monster;
 	private JLabel heroImage, monsterImage, heroName, monsterName, heroHP, monsterHP, monsterLevel, shieldLevel, weaponLevel;
 	private JButton attackButton, potionButton;
-	
+	private boolean attacking;
 	/**
 	 * initializes all the JLabels and JButtons
 	 * 
@@ -36,6 +42,7 @@ public class BattlePanel extends JPanel implements ActionListener {
 	 * @param dungeonFrame 
 	 */
 	public BattlePanel(Hero hero, Monster monster){
+		attacking = false;
 		this.hero = hero;
 		this.monster = monster;
 		this.setLayout(null);
@@ -75,7 +82,7 @@ public class BattlePanel extends JPanel implements ActionListener {
 		initPositions();
 		addLabels();
 	}
-	
+
 	/**
 	 * adds all the labels and buttons to the JPanel
 	 */
@@ -130,6 +137,7 @@ public class BattlePanel extends JPanel implements ActionListener {
 	    g2d.dispose();
 	    return bi;
 	}
+	
 
 	/**
 	 * After clicking on a button, the labels have to be updated
@@ -152,10 +160,15 @@ public class BattlePanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(attackButton.equals(e.getSource())){
+			AnimPanel animPanel = new AnimPanel(hero, monster);
+			GameController.getDungeonFrame().remove(this);
+			GameController.getDungeonFrame().add(animPanel);
+			GameController.getDungeonFrame().validate();
+			
 			if(Battle.attack(hero, monster, true) == 1){
 				JFrame dungeonFrame = GameController.getDungeonFrame();
 				DungeonPanel dungeonPanel = GameController.getDungeonPanel();
-				dungeonFrame.remove(this);
+				dungeonFrame.remove(animPanel);
 				dungeonFrame.add(dungeonPanel);
 				dungeonFrame.validate();
 				dungeonPanel.repaint();
@@ -164,20 +177,15 @@ public class BattlePanel extends JPanel implements ActionListener {
 			
 			Battle.attack(hero, monster, false);
 			updateLabels();
-			
 		}
 		else if(potionButton.equals(e.getSource())){
 			Battle.usePotion(hero, new Potion("", "", 0.5));
 			updateLabels();
 			
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-			
 			Battle.attack(hero, monster, false);
 			updateLabels();
 		}
 	}
+	
+	
 }

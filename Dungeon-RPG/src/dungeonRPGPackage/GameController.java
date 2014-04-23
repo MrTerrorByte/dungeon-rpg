@@ -39,6 +39,7 @@ public class GameController{
 	private int tileSize = Map.FRAMEWIDTH/Map.ARRAYSIZE;
 	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
     private static DungeonPanel dungeonPanel;
+    public static BattlePanel battlePanel;
     private BufferedImage heroImage, grassImage, caveImage, floorImage;
     
     /**
@@ -97,7 +98,7 @@ public class GameController{
 			e.printStackTrace();
 		}
     	dungeonFrame.remove(dungeonPanel);
-    	BattlePanel battlePanel = new BattlePanel(hero, monster);
+    	battlePanel = new BattlePanel(hero, monster);
     	dungeonFrame.add(battlePanel);
     	dungeonFrame.validate();
     }
