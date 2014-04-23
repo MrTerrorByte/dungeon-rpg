@@ -201,7 +201,7 @@ public class GameController{
 		private JLabel heroImageLabel;
 		private ImageIcon maleIcon, femaleIcon;
 		private JTextField nameField;
-		private boolean gender;		
+		private boolean gender = hero.MALE;	
 		
 		public StartMenu(){
 			// set layout to gridbaglayout
