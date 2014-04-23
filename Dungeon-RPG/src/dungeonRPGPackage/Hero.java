@@ -14,19 +14,22 @@ import dungeonRPGPackage.Map.Tile;
  *
  */
 public class Hero {
-	private Map map;				//current Map Hero is on
-	private Map dungeonMaps[];		//all the Maps in the dungeon in order
-	private double maxHealth;		//the maximum health the hero has
-	private double currHealth;		//how much health the hero currently has
-	private int potionCount;		//a hero starts with 5 potions, but can buy more later
-	private String name;			//hero's name, picked by user
-	private int x,y;				//hero's x and y coordinate on the map
-	private Weapon weapon;			//hero's equipped weapon
-	private Shield shield;			//hero's equipped shield
-	private int gold;				//how much gold the hero has
-	private BufferedImage image;	//image representing the Hero
-	private int mapIndex;			//index in Dungeon array that Hero is in
-	private boolean gender;			//gender of the Hero
+	private Map map;					//current Map Hero is on
+	private Map dungeonMaps[];			//all the Maps in the dungeon in order
+	private double maxHealth;			//the maximum health the hero has
+	private double currHealth;			//how much health the hero currently has
+	private int potionCount;			//a hero starts with 5 potions, but can buy more later
+	private String name;				//hero's name, picked by user
+	private int x,y;					//hero's x and y coordinate on the map
+	private Weapon weapon;				//hero's equipped weapon
+	private Shield shield;				//hero's equipped shield
+	private int gold;					//how much gold the hero has
+	private BufferedImage backImage;	//image of Hero from behind
+	private BufferedImage frontImage;	//image of Hero from front
+	private BufferedImage rightImage;	//image of Hero from the right
+	private BufferedImage leftImage;	//image of Hero from the left
+	private int mapIndex;				//index in Dungeon array that Hero is in
+	private boolean gender;				//gender of the Hero
 	
 	final static boolean MALE = true;
 	final static boolean FEMALE = false;
@@ -45,27 +48,14 @@ public class Hero {
 		this.gold = 1000;
 		this.gender = gender;
 		
-		if(gender){
-			try {
-				this.image = ImageIO.read(new File("src/images/maleBackStanding.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		else{
-			try {
-				this.image = ImageIO.read(new File("src/images/femaleBackStanding.png"));
-			} catch (IOException e){
-				e.printStackTrace();
-			}
-		}
+		//set up images for the Hero
+		setupImages(gender);
 		
 		//setup Dungeon Maps
 		MapGenerator generator = new MapGenerator();
 		this.dungeonMaps = new Map[3];
     	dungeonMaps[0] = generator.generateMap("src/maps/startmap.txt", 5, 11, 6, 4);
     	dungeonMaps[1] = generator.generateMap("src/maps/dungeon1.txt", 6, 4, 11, 6);
-		//dungeonMaps[1] = new DungeonMap1(6, 4, 11, 5);
     	dungeonMaps[2] = new Map(11, 6, 11, 11);
 		this.map = dungeonMaps[0];					//set Hero's initial Map to the start map
 		this.mapIndex = 0;
@@ -73,11 +63,35 @@ public class Hero {
 		this.y = map.getEntranceLocY();				//set Hero's initial y pos to Entrance Y
 	}
 	
+	/**
+	 * Loads the correct images for the the Hero based on gender
+	 * @param gender	gender of the Hero
+	 */
+	private void setupImages(boolean gender){
+		//male
+		if(MALE){
+			try {
+				this.backImage = ImageIO.read(new File("src/images/maleBackStanding.png"));
+				this.frontImage = ImageIO.read(new File("src/images/maleFrontStanding.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		//female
+		else{
+			try {
+				this.backImage = ImageIO.read(new File("src/images/femaleBackStanding.png"));
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public boolean isGender() {
 		return gender;
 	}
 
-	public void setGender(boolean gender) {
+	/*public void setGender(boolean gender) {
 		this.gender = gender;
 		if(gender){
 			try {
@@ -93,10 +107,42 @@ public class Hero {
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public BufferedImage getBackImage() {
+		return backImage;
+	}
+
+	public void setBackImage(BufferedImage backImage) {
+		this.backImage = backImage;
+	}
+
+	public BufferedImage getFrontImage() {
+		return frontImage;
+	}
+
+	public void setFrontImage(BufferedImage frontImage) {
+		this.frontImage = frontImage;
+	}
+
+	public BufferedImage getRightImage() {
+		return rightImage;
+	}
+
+	public void setRightImage(BufferedImage rightImage) {
+		this.rightImage = rightImage;
+	}
+
+	public BufferedImage getLeftImage() {
+		return leftImage;
+	}
+
+	public void setLeftImage(BufferedImage leftImage) {
+		this.leftImage = leftImage;
 	}
 
 	public void setWeapon(Weapon weapon) {
@@ -237,14 +283,6 @@ public class Hero {
 	
 	public Shield getShield(){
 		return this.shield;
-	}
-	
-	public BufferedImage getImage(){
-		return image;
-	}
-	
-	public void setImage(BufferedImage image){
-		this.image = image;
 	}
 	
 	public int getMapIndex(){

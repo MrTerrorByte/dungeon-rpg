@@ -134,6 +134,7 @@ public class GameController implements KeyListener{
 			if(hero.move(hero.getX(), hero.getY()+1) == 1){
 				addBattlePanel();
 			}
+			heroImage = hero.getFrontImage();
 			dungeonPanel.repaint();
 		}
 		//press left key
@@ -305,7 +306,7 @@ public class GameController implements KeyListener{
 				// turn start menu invisible
 				this.setVisible(false);
 		    	hero.setName(nameField.getText());
-		    	heroImage = hero.getImage();
+		    	heroImage = hero.getFrontImage();
 		        dungeonPanel.setVisible(true);
 		        dungeonPanel.requestFocus();
 			}
