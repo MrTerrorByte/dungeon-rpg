@@ -18,6 +18,7 @@ public class MapGenerator {
 	final static String ROCK = "1";
 	final static String NONE = "2";
 	final static String FLOOR = "3";
+	final static String WATER = "4";
 	
 	/**
 	 * Generates a Map based on a textfile
@@ -47,6 +48,8 @@ public class MapGenerator {
             		case FLOOR:
             			dungeonMap.getTileArray()[row][col] = Tile.FLOOR;
             			break;
+            		case WATER:
+            			dungeonMap.getTileArray()[row][col] = Tile.WATER;
             	}
             }
         }
@@ -85,9 +88,4 @@ public class MapGenerator {
 		}
 		return array;
 	}
-	
-	/*public static void main(String[] args){
-		MapGenerator g = new MapGenerator();
-		g.generateMap("src/maps/startmap.txt");
-	}*/
 }

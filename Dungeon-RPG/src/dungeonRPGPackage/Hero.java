@@ -33,6 +33,7 @@ public class Hero {
 	
 	final static boolean MALE = true;
 	final static boolean FEMALE = false;
+	final static int NUM_MAPS = 3;
 	
 	/**
 	 * Constructor for hero: sets default maxHealth value to 100 and initializes the inventory.
@@ -53,10 +54,11 @@ public class Hero {
 		
 		//setup Dungeon Maps
 		MapGenerator generator = new MapGenerator();
-		this.dungeonMaps = new Map[3];
-    	dungeonMaps[0] = generator.generateMap("src/maps/startmap.txt", 5, 10, 6, 4);
+		this.dungeonMaps = new Map[4];
+    	dungeonMaps[0] = generator.generateMap("src/maps/startmap.txt", 5, 9, 6, 4);
     	dungeonMaps[1] = generator.generateMap("src/maps/dungeon1.txt", 6, 4, 11, 6);
     	dungeonMaps[2] = generator.generateMap("src/maps/dungeon2.txt", 11, 6, 8, 5);
+    	dungeonMaps[3] = generator.generateMap("src/maps/dungeon3.txt", 8, 5, 2, 8);
 		this.map = dungeonMaps[0];					//set Hero's initial Map to the start map
 		this.mapIndex = 0;
 		this.x = map.getEntranceLocX();				//set Hero's initial x pos to Entrance X
@@ -147,7 +149,7 @@ public class Hero {
 			this.y = destY;
 			//if Hero is at the exit location of the current map, move to next map
 			if(this.x == map.getExitLocX() && this.y == map.getExitLocY()){
-				if(mapIndex < 2){
+				if(mapIndex < NUM_MAPS){
 					map = dungeonMaps[++mapIndex];
 					return 0;
 				}
@@ -179,8 +181,8 @@ public class Hero {
 		if(destX < 0 || destY < 0 || destX >= this.map.getWidth() || destY >= this.map.getHeight()){
 			return false;
 		}
-		//if where we're moving there is a rock
-		if(map.getTileArray()[destX][destY] == Tile.ROCK){
+		//if where we're moving there is a rock or water
+		if(map.getTileArray()[destX][destY] == Tile.ROCK || map.getTileArray()[destX][destY] == Tile.WATER){
 			return false;
 		}
 		

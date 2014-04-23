@@ -40,7 +40,7 @@ public class GameController{
 	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
     private static DungeonPanel dungeonPanel;
     public static BattlePanel battlePanel;
-    private BufferedImage heroImage, grassImage, caveImage, floorImage;
+    private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage;
     
     /**
      * Constructs a GameController, which means the JFrame that displays the Map and Hero.
@@ -54,8 +54,9 @@ public class GameController{
             grassImage = ImageIO.read(new File("src/images/grass.png"));
             floorImage = ImageIO.read(new File("src/images/floor.png"));
             caveImage = ImageIO.read(new File("src/images/cave.png"));
+            waterImage = ImageIO.read(new File("src/images/water.png"));
         } catch (IOException e) {
-        	System.out.println("Grass image Doesnt exist");
+        	System.out.println("Image doesn't exist");
         }
 
 		dungeonFrame.addWindowListener(new WindowAdapter() {
@@ -127,6 +128,9 @@ public class GameController{
                         case FLOOR:
                         	tileGraphics.drawImage(floorImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
                         	break;
+                        case WATER:
+                        	tileGraphics.drawImage(waterImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        	break;
                         case NONE:
                         	tileGraphics.setColor(Color.BLACK);
                         	tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
@@ -147,7 +151,7 @@ public class GameController{
 			//press up key
 			if(arg0.getKeyCode() == KeyEvent.VK_UP){
 				if(hero.move(hero.getX(), hero.getY()-1) == 1){
-					addBattlePanel();
+					//addBattlePanel();
 				}
 				heroImage = hero.getBackImage();
 				dungeonPanel.repaint();
@@ -155,7 +159,7 @@ public class GameController{
 			//press down key
 			else if(arg0.getKeyCode() == KeyEvent.VK_DOWN){
 				if(hero.move(hero.getX(), hero.getY()+1) == 1){
-					addBattlePanel();
+					//addBattlePanel();
 				}
 				heroImage = hero.getFrontImage();
 				dungeonPanel.repaint();
@@ -163,7 +167,7 @@ public class GameController{
 			//press left key
 			else if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
 				if(hero.move(hero.getX()-1, hero.getY()) == 1){
-					addBattlePanel();
+					//addBattlePanel();
 				}
 				heroImage = hero.getLeftImage();
 				dungeonPanel.repaint();
@@ -171,7 +175,7 @@ public class GameController{
 			//press right key
 			else if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
 				if(hero.move(hero.getX()+1, hero.getY()) == 1){
-					addBattlePanel();
+					//addBattlePanel();
 				}
 				heroImage = hero.getRightImage();
 				dungeonPanel.repaint();
