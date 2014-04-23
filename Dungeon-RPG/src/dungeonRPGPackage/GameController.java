@@ -32,7 +32,7 @@ import javax.swing.JTextField;
  * @author rrienton
  *
  */
-public class GameController implements KeyListener{
+public class GameController{
 	private Hero hero;
 	private Weapon weapon = new Weapon("Sword","Sword",50,10);
 	private Shield shield = new Shield("Shield","Shield",100,10);
@@ -46,24 +46,15 @@ public class GameController implements KeyListener{
      */
     public GameController()
     {   
-    	hero = new Hero(null, true, weapon, shield);
         grassImage = null;
         caveImage = null;
         floorImage = null;
         try {
             grassImage = ImageIO.read(new File("src/images/grass.png"));
-        } catch (IOException e) {
-        	System.out.println("Grass image Doesnt exist");
-        }
-        try {
             floorImage = ImageIO.read(new File("src/images/floor.png"));
-        } catch (IOException e) {
-        	System.out.println("Floor image Doesnt exist");
-        }
-        try {
             caveImage = ImageIO.read(new File("src/images/cave.png"));
         } catch (IOException e) {
-        	System.out.println("Cave image Doesnt exist");
+        	System.out.println("Grass image Doesnt exist");
         }
 
 		dungeonFrame.addWindowListener(new WindowAdapter() {
@@ -79,11 +70,6 @@ public class GameController implements KeyListener{
 		dungeonFrame.setResizable(false);
 		dungeonFrame.setVisible(true);
         dungeonFrame.validate();
-        
-    	dungeonPanel = new DungeonPanel();
-        dungeonPanel.addKeyListener(this);
-        dungeonPanel.setBounds(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
-        dungeonFrame.add(dungeonPanel);
     }
     
     public static JFrame getDungeonFrame(){
@@ -115,58 +101,6 @@ public class GameController implements KeyListener{
     	dungeonFrame.add(battlePanel);
     	dungeonFrame.validate();
     }
-    
-	@Override
-	/**
-	 * Handles movement when arrow keys are pressed and when the escape button is pressed
-	 * @param arg0 KeyEvent
-	 */
-	public void keyPressed(KeyEvent arg0) {
-		//press up key
-		if(arg0.getKeyCode() == KeyEvent.VK_UP){
-			if(hero.move(hero.getX(), hero.getY()-1) == 1){
-				addBattlePanel();
-			}
-			dungeonPanel.repaint();
-		}
-		//press down key
-		else if(arg0.getKeyCode() == KeyEvent.VK_DOWN){
-			if(hero.move(hero.getX(), hero.getY()+1) == 1){
-				addBattlePanel();
-			}
-			dungeonPanel.repaint();
-		}
-		//press left key
-		else if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
-			if(hero.move(hero.getX()-1, hero.getY()) == 1){
-				addBattlePanel();
-			}
-			dungeonPanel.repaint();
-		}
-		//press right key
-		else if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
-			if(hero.move(hero.getX()+1, hero.getY()) == 1){
-				addBattlePanel();
-			}
-			dungeonPanel.repaint();
-		}
-		//press esc
-		else if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE){
-			System.exit(0);
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	/**
 	 * This panel is for the map
@@ -174,7 +108,7 @@ public class GameController implements KeyListener{
 	 *
 	 */
 	@SuppressWarnings("serial")
-	public class DungeonPanel extends JPanel{
+	public class DungeonPanel extends JPanel implements KeyListener{
 		@Override
 		public void paint(Graphics g){
 	        this.requestFocus();
@@ -202,6 +136,58 @@ public class GameController implements KeyListener{
 			tileGraphics.drawImage(heroImage, hero.getX()*tileSize, hero.getY()*tileSize, null);
             
 		}
+		
+		@Override
+		/**
+		 * Handles movement when arrow keys are pressed and when the escape button is pressed
+		 * @param arg0 KeyEvent
+		 */
+		public void keyPressed(KeyEvent arg0) {
+			//press up key
+			if(arg0.getKeyCode() == KeyEvent.VK_UP){
+				if(hero.move(hero.getX(), hero.getY()-1) == 1){
+					addBattlePanel();
+				}
+				heroImage = hero.getBackImage();
+				dungeonPanel.repaint();
+			}
+			//press down key
+			else if(arg0.getKeyCode() == KeyEvent.VK_DOWN){
+				if(hero.move(hero.getX(), hero.getY()+1) == 1){
+					addBattlePanel();
+				}
+				heroImage = hero.getFrontImage();
+				dungeonPanel.repaint();
+			}
+			//press left key
+			else if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
+				if(hero.move(hero.getX()-1, hero.getY()) == 1){
+					addBattlePanel();
+				}
+				heroImage = hero.getLeftImage();
+				dungeonPanel.repaint();
+			}
+			//press right key
+			else if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
+				if(hero.move(hero.getX()+1, hero.getY()) == 1){
+					addBattlePanel();
+				}
+				heroImage = hero.getRightImage();
+				dungeonPanel.repaint();
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	/**
@@ -214,7 +200,7 @@ public class GameController implements KeyListener{
 		private JLabel heroImageLabel;
 		private ImageIcon maleIcon, femaleIcon;
 		private JTextField nameField;
-		private Boolean gender;		//true == male
+		private boolean gender;		
 		
 		public StartMenu(){
 			// set layout to gridbaglayout
@@ -234,14 +220,13 @@ public class GameController implements KeyListener{
 			constraints.gridy = 2;
 			this.add(chooseHeroLabel, constraints);
 			
-			
-			BufferedImage heroImage = null;
+			BufferedImage image = null;
 			try {
-	            heroImage = ImageIO.read(new File("src/images/maleFrontStanding.png"));
+	            image = ImageIO.read(new File("src/images/maleFrontStanding.png"));
 	        } catch (IOException e) {
 	        	System.out.println("Hero image Doesnt exist");
 	        }
-			maleIcon = new ImageIcon(heroImage);
+			maleIcon = new ImageIcon(image);
 			
 			// add hero image label
 			heroImageLabel = new JLabel(maleIcon);
@@ -250,11 +235,11 @@ public class GameController implements KeyListener{
 			this.add(heroImageLabel, constraints);
 
 			try {
-	            heroImage = ImageIO.read(new File("src/images/femaleFrontStanding.png"));
+	            image = ImageIO.read(new File("src/images/femaleFrontStanding.png"));
 	        } catch (IOException e) {
 	        	System.out.println("Hero image Doesnt exist");
 	        }
-			femaleIcon = new ImageIcon(heroImage);
+			femaleIcon = new ImageIcon(image);
 				
 			// add player 1 textfield
 			nameField = new JTextField("Jordan");
@@ -304,19 +289,25 @@ public class GameController implements KeyListener{
 			if ("start".equals(event.getActionCommand())) {
 				// turn start menu invisible
 				this.setVisible(false);
-		    	hero.setName(nameField.getText());
-		    	heroImage = hero.getImage();
+				//set up dungeon panel and create Hero
+		    	hero = new Hero(nameField.getText(), gender, weapon, shield);
+		        heroImage = hero.getFrontImage();
+		        
+		    	dungeonPanel = new DungeonPanel();
+		    	dungeonPanel.addKeyListener(dungeonPanel);
+		        dungeonPanel.setBounds(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
+		        dungeonFrame.add(dungeonPanel);
 		        dungeonPanel.setVisible(true);
 		        dungeonPanel.requestFocus();
 			}
 			//radio buttons for choosing Hero
 			if("Male".equals(event.getActionCommand())) {
 				heroImageLabel.setIcon(maleIcon);
-				hero = new Hero(null, true, weapon, shield);
+				gender = hero.MALE;
 			}
 			if("Female".equals(event.getActionCommand())) {
 				heroImageLabel.setIcon(femaleIcon);
-				hero = new Hero(null, false, weapon, shield);
+				gender = hero.FEMALE;
 			}
 		}
 	}

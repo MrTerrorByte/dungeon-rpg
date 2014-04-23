@@ -40,7 +40,7 @@ public class BattlePanel extends JPanel implements ActionListener {
 		this.monster = monster;
 		this.setLayout(null);
 		heroImage = new JLabel();
-		heroImage.setIcon(new ImageIcon(resize(hero.getImage(), 150, 150)));
+		heroImage.setIcon(new ImageIcon(resize(hero.getBackImage(), 150, 150)));
 		
 		monsterImage = new JLabel();
 		monsterImage.setIcon(new ImageIcon(resize(monster.getImage(), 150, 150)));
