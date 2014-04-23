@@ -54,7 +54,7 @@ public class Hero {
 		//setup Dungeon Maps
 		MapGenerator generator = new MapGenerator();
 		this.dungeonMaps = new Map[3];
-    	dungeonMaps[0] = generator.generateMap("src/maps/startmap.txt", 5, 11, 6, 4);
+    	dungeonMaps[0] = generator.generateMap("src/maps/startmap.txt", 5, 10, 6, 4);
     	dungeonMaps[1] = generator.generateMap("src/maps/dungeon1.txt", 6, 4, 11, 6);
     	dungeonMaps[2] = new Map(11, 6, 11, 11);
 		this.map = dungeonMaps[0];					//set Hero's initial Map to the start map
@@ -69,10 +69,12 @@ public class Hero {
 	 */
 	private void setupImages(boolean gender){
 		//male
-		if(MALE){
+		if(gender == MALE){
 			try {
 				this.backImage = ImageIO.read(new File("src/images/maleBackStanding.png"));
 				this.frontImage = ImageIO.read(new File("src/images/maleFrontStanding.png"));
+				this.rightImage = ImageIO.read(new File("src/images/maleRightStanding.png"));
+				this.leftImage = ImageIO.read(new File("src/images/maleLeftStanding.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -81,6 +83,9 @@ public class Hero {
 		else{
 			try {
 				this.backImage = ImageIO.read(new File("src/images/femaleBackStanding.png"));
+				this.frontImage = ImageIO.read(new File("src/images/femaleFrontStanding.png"));
+				this.rightImage = ImageIO.read(new File("src/images/femaleRightStanding.png"));
+				this.leftImage = ImageIO.read(new File("src/images/femaleLeftStanding.png"));
 			} catch (IOException e){
 				e.printStackTrace();
 			}
@@ -91,58 +96,25 @@ public class Hero {
 		return gender;
 	}
 
-	/*public void setGender(boolean gender) {
+	public void setGender(boolean gender) {
 		this.gender = gender;
-		if(gender){
-			try {
-				this.image = ImageIO.read(new File("src/images/maleBackStanding.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		else{
-			try {
-				this.image = ImageIO.read(new File("src/images/femaleBackStanding.png"));
-			} catch (IOException e){
-				e.printStackTrace();
-			}
-		}
-	}*/
-
-	public void setName(String name) {
-		this.name = name;
+		setupImages(gender);
 	}
 
 	public BufferedImage getBackImage() {
 		return backImage;
 	}
 
-	public void setBackImage(BufferedImage backImage) {
-		this.backImage = backImage;
-	}
-
 	public BufferedImage getFrontImage() {
 		return frontImage;
-	}
-
-	public void setFrontImage(BufferedImage frontImage) {
-		this.frontImage = frontImage;
 	}
 
 	public BufferedImage getRightImage() {
 		return rightImage;
 	}
 
-	public void setRightImage(BufferedImage rightImage) {
-		this.rightImage = rightImage;
-	}
-
 	public BufferedImage getLeftImage() {
 		return leftImage;
-	}
-
-	public void setLeftImage(BufferedImage leftImage) {
-		this.leftImage = leftImage;
 	}
 
 	public void setWeapon(Weapon weapon) {
