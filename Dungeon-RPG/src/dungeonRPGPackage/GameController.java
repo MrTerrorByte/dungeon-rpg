@@ -35,8 +35,8 @@ import javax.swing.JTextField;
  */
 public class GameController{
 	private Hero hero;
-	private Weapon weapon = new Weapon("Sword","Sword",50,10);
-	private Shield shield = new Shield("Shield","Shield",100,10);
+	private Weapon weapon; 
+	private Shield shield;
 	private int tileSize = Map.FRAMEWIDTH/Map.ARRAYSIZE;
 	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
     private static DungeonPanel dungeonPanel;
@@ -124,11 +124,17 @@ public class GameController{
             
             //if game is over
             if(hero.isGameOver()) {
-            	tileGraphics.setBackground(Color.BLACK);
+            	tileGraphics.setColor(Color.BLACK);
+            	tileGraphics.fillRect(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
             	tileGraphics.setColor(Color.WHITE);
-	            Font font = new Font("Dialog", Font.BOLD, 20);
+	            Font font = new Font("Dialog", Font.BOLD, 40);
 	            tileGraphics.setFont(font);
-	            tileGraphics.drawString("Hello!", 20, 20);
+	            tileGraphics.drawString("GAME OVER", 190, 200);
+	            tileGraphics.drawString("You were defeated!", 130, 300);
+	            tileGraphics.drawImage(dragonImage, 300, 350, tileSize, tileSize, null);
+	            Font font2 = new Font("Dialog", Font.BOLD, 30);
+	            tileGraphics.setFont(font2);
+	            tileGraphics.drawString("Press the Space Bar to Restart", 100, 500);
             }
             else {
             	for (int row = 0; row < Map.ARRAYSIZE; row++) {
@@ -164,6 +170,16 @@ public class GameController{
             	}
             	tileGraphics.drawImage(heroImage, hero.getX()*tileSize, hero.getY()*tileSize, null);
             }
+		}
+		
+		/**
+		 * Restarts the game.
+		 */
+		private void restartGame(){
+			dungeonFrame.remove(dungeonPanel);
+			StartMenu startMenu = new StartMenu();
+	        dungeonFrame.add(startMenu);
+	        dungeonFrame.revalidate();
 		}
 		
 		@Override
@@ -203,6 +219,12 @@ public class GameController{
 				}
 				heroImage = hero.getRightImage();
 				dungeonPanel.repaint();
+			}
+			//press space bar
+			else if(arg0.getKeyCode() == KeyEvent.VK_SPACE){
+				if(hero.isGameOver()){
+					restartGame();
+				}
 			}
 		}
 
@@ -319,13 +341,17 @@ public class GameController{
 				// turn start menu invisible
 				this.setVisible(false);
 				//set up dungeon panel and create Hero
+				weapon = new Weapon("Sword","Sword",50,10);
+				shield = new Shield("Shield","Shield",100,10);
 		    	hero = new Hero(nameField.getText(), gender, weapon, shield);
 		        heroImage = hero.getFrontImage();
 		        
+		        dungeonFrame.remove(this);
 		    	dungeonPanel = new DungeonPanel();
 		    	dungeonPanel.addKeyListener(dungeonPanel);
 		        dungeonPanel.setBounds(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
 		        dungeonFrame.add(dungeonPanel);
+		        dungeonFrame.revalidate();
 		        dungeonPanel.setVisible(true);
 		        dungeonPanel.requestFocus();
 			}

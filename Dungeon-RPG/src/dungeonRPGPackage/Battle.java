@@ -24,7 +24,7 @@ public class Battle {
 				return endBattle("monster", hero, monster);
 			}
 		}
-		return -1;
+		return 0;
 	}
 	
 	/**

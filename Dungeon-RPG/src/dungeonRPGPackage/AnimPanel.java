@@ -109,9 +109,9 @@ public class AnimPanel extends JPanel implements ActionListener{
 					
 					if(Battle.attack(hero, monster, Turn) == -1){
 						dungeonFrame.add(GameController.getDungeonPanel());
-						dungeonFrame.revalidate();
 						this.Turn = true;
 						GameController.getDungeonPanel().repaint();
+						dungeonFrame.revalidate();
 						return;
 					}
 					
