@@ -106,12 +106,15 @@ public class AnimPanel extends JPanel implements ActionListener{
 					JFrame dungeonFrame = GameController.getDungeonFrame();
 					dungeonFrame.remove(this);
 					//if Hero dies
+					
 					if(Battle.attack(hero, monster, Turn) == -1){
 						dungeonFrame.add(GameController.getDungeonPanel());
 						dungeonFrame.revalidate();
+						this.Turn = true;
 						GameController.getDungeonPanel().repaint();
 						return;
 					}
+					
 					dungeonFrame.add(GameController.battlePanel);
 					GameController.battlePanel.repaint();
 					dungeonFrame.revalidate();

@@ -105,7 +105,8 @@ public class GameController{
 		}
     	dungeonFrame.remove(dungeonPanel);
     	battlePanel = new BattlePanel(hero, monster);
-    	dungeonFrame.add(battlePanel);
+    	LoadingPanel loadingPanel = new LoadingPanel();
+    	dungeonFrame.add(loadingPanel);
     	dungeonFrame.validate();
     }
 	
