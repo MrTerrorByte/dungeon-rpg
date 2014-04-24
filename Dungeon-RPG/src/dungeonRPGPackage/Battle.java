@@ -16,7 +16,6 @@ public class Battle {
 			if(monster.getCurrHealth() <= 0){
 				return endBattle("hero", hero, monster);
 			}
-			Turn = false;
 		}
 		else{ //monster's turn
 			hero.setCurrHealth(hero.getCurrHealth() - monster.getAttack());

@@ -129,10 +129,10 @@ public class GameController{
             	tileGraphics.setColor(Color.WHITE);
 	            Font font = new Font("Dialog", Font.BOLD, 40);
 	            tileGraphics.setFont(font);
-	            tileGraphics.drawString("GAME OVER", 190, 200);
+	            tileGraphics.drawString("GAME OVER", 170, 200);
 	            tileGraphics.drawString("You were defeated!", 130, 300);
 	            tileGraphics.drawImage(dragonImage, 300, 350, tileSize, tileSize, null);
-	            Font font2 = new Font("Dialog", Font.BOLD, 30);
+	            Font font2 = new Font("Dialog", Font.BOLD, 20);
 	            tileGraphics.setFont(font2);
 	            tileGraphics.drawString("Press the Space Bar to Restart", 100, 500);
             }
