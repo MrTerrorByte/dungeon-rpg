@@ -30,6 +30,7 @@ public class Hero {
 	private BufferedImage leftImage;	//image of Hero from the left
 	private int mapIndex;				//index in Dungeon array that Hero is in
 	private boolean gender;				//gender of the Hero
+	private boolean gameOver = false;	//whether or not the game is over for this Hero
 	
 	final static boolean MALE = true;
 	final static boolean FEMALE = false;
@@ -264,5 +265,13 @@ public class Hero {
 	
 	public int getMapIndex(){
 		return mapIndex;
+	}
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
 	}
 }

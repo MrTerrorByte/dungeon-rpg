@@ -2,6 +2,7 @@ package dungeonRPGPackage;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -41,6 +42,7 @@ public class GameController{
     private static DungeonPanel dungeonPanel;
     public static BattlePanel battlePanel;
     private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage, treeImage, lavaImage, dragonImage;
+    private boolean gameOver = false;
     
     /**
      * Constructs a GameController, which means the JFrame that displays the Map and Hero.
@@ -119,39 +121,48 @@ public class GameController{
 	        this.requestFocus();
             Graphics2D tileGraphics = (Graphics2D) g;
             
-            for (int row = 0; row < Map.ARRAYSIZE; row++) {
-                for (int col = 0; col < Map.ARRAYSIZE; col++) {
-                    switch (hero.getMap().getTileArray()[row][col]) {
-                        case GRASS:
-                            tileGraphics.drawImage(grassImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
-                            break;
-                        case ROCK:
-                        	tileGraphics.drawImage(caveImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
-                        	break;
-                        case FLOOR:
-                        	tileGraphics.drawImage(floorImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
-                        	break;
-                        case WATER:
-                        	tileGraphics.drawImage(waterImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
-                        	break;
-                        case TREE:
-                        	tileGraphics.drawImage(treeImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
-                        	break;
-                        case LAVA:
-                        	tileGraphics.drawImage(lavaImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
-                        	break;
-                        case DRAGON:
-                        	tileGraphics.drawImage(dragonImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
-                        	break;
-                        case NONE:
-                        	tileGraphics.setColor(Color.BLACK);
-                        	tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
-                        	break;
-                    }
-                }
+            //if game is over
+            if(hero.isGameOver()) {
+            	tileGraphics.setBackground(Color.BLACK);
+            	tileGraphics.setColor(Color.WHITE);
+	            Font font = new Font("Dialog", Font.BOLD, 20);
+	            tileGraphics.setFont(font);
+	            tileGraphics.drawString("Hello!", 20, 20);
             }
-			tileGraphics.drawImage(heroImage, hero.getX()*tileSize, hero.getY()*tileSize, null);
-            
+            else {
+            	for (int row = 0; row < Map.ARRAYSIZE; row++) {
+            		for (int col = 0; col < Map.ARRAYSIZE; col++) {
+            			switch (hero.getMap().getTileArray()[row][col]) {
+                        	case GRASS:
+                        		tileGraphics.drawImage(grassImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
+                        	case ROCK:
+                        		tileGraphics.drawImage(caveImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
+                        	case FLOOR:
+                        		tileGraphics.drawImage(floorImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
+                        	case WATER:
+                        		tileGraphics.drawImage(waterImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
+                        	case TREE:
+                        		tileGraphics.drawImage(treeImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
+                        	case LAVA:
+                        		tileGraphics.drawImage(lavaImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
+                        	case DRAGON:
+                        		tileGraphics.drawImage(dragonImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
+                        	case NONE:
+                        		tileGraphics.setColor(Color.BLACK);
+                        		tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
+                        		break;
+            			}
+            		}
+            	}
+            	tileGraphics.drawImage(heroImage, hero.getX()*tileSize, hero.getY()*tileSize, null);
+            }
 		}
 		
 		@Override

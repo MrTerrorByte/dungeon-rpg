@@ -56,6 +56,10 @@ public class Battle {
 			hero.setGold(hero.getGold() + monster.getGoldGain());
 			return 1;
 		}
-		return -1;
+		//if hero dies
+		else{
+			hero.setGameOver(true);
+			return -1;
+		}
 	}
 }
