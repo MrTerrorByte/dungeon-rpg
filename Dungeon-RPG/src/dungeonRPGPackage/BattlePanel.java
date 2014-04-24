@@ -79,7 +79,7 @@ public class BattlePanel extends JPanel implements KeyListener{
 		g.drawString("HP: "+hero.getCurrHealth()+"/"+hero.getMaxHealth(), MONSTERX, HEROY+OFFSET*3);
 		g.drawImage(heroImage, HEROX, HEROY, 150, 150, null);
 		g.drawString("Press 'a' to attack", OFFSET, Map.FRAMEHEIGHT-4*OFFSET);
-		g.drawString("Press p to use potion, "+hero.getPotionCount()+"x left",OFFSET, Map.FRAMEHEIGHT-3*OFFSET);
+		g.drawString("Press 'p' to use potion, "+hero.getPotionCount()+"x left",OFFSET, Map.FRAMEHEIGHT-3*OFFSET);
 		g.drawImage(monsterImage, MONSTERX, MONSTERY, 150, 150, null);
 	}
 	
