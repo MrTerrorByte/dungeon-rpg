@@ -181,8 +181,9 @@ public class Hero {
 		if(destX < 0 || destY < 0 || destX >= this.map.getWidth() || destY >= this.map.getHeight()){
 			return false;
 		}
-		//if where we're moving there is a rock or water
-		if(map.getTileArray()[destX][destY] == Tile.ROCK || map.getTileArray()[destX][destY] == Tile.WATER){
+		//if where we're moving there is a rock or water or tree
+		if(map.getTileArray()[destX][destY] == Tile.ROCK || map.getTileArray()[destX][destY] == Tile.WATER
+				|| map.getTileArray()[destX][destY] == Tile.TREE){
 			return false;
 		}
 		

@@ -19,6 +19,7 @@ public class MapGenerator {
 	final static String NONE = "2";
 	final static String FLOOR = "3";
 	final static String WATER = "4";
+	final static String TREE = "5";
 	
 	/**
 	 * Generates a Map based on a textfile
@@ -50,6 +51,10 @@ public class MapGenerator {
             			break;
             		case WATER:
             			dungeonMap.getTileArray()[row][col] = Tile.WATER;
+            			break;
+            		case TREE:
+            			dungeonMap.getTileArray()[row][col] = Tile.TREE;
+            			break;
             	}
             }
         }

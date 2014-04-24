@@ -40,7 +40,7 @@ public class GameController{
 	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
     private static DungeonPanel dungeonPanel;
     public static BattlePanel battlePanel;
-    private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage;
+    private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage, treeImage;
     
     /**
      * Constructs a GameController, which means the JFrame that displays the Map and Hero.
@@ -55,6 +55,7 @@ public class GameController{
             floorImage = ImageIO.read(new File("src/images/floor.png"));
             caveImage = ImageIO.read(new File("src/images/cave.png"));
             waterImage = ImageIO.read(new File("src/images/water.png"));
+            treeImage = ImageIO.read(new File("src/images/tree.png"));
         } catch (IOException e) {
         	System.out.println("Image doesnt exist");
         }
@@ -130,6 +131,9 @@ public class GameController{
                         	break;
                         case WATER:
                         	tileGraphics.drawImage(waterImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        	break;
+                        case TREE:
+                        	tileGraphics.drawImage(treeImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
                         	break;
                         case NONE:
                         	tileGraphics.setColor(Color.BLACK);
