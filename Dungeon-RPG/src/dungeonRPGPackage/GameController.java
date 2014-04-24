@@ -190,6 +190,9 @@ public class GameController{
 		public void keyPressed(KeyEvent arg0) {
 			//press up key
 			if(arg0.getKeyCode() == KeyEvent.VK_UP){
+				if(hero.isGameOver()){
+					return;
+				}
 				if(hero.move(hero.getX(), hero.getY()-1) == 1){
 					addBattlePanel();
 				}
@@ -198,6 +201,9 @@ public class GameController{
 			}
 			//press down key
 			else if(arg0.getKeyCode() == KeyEvent.VK_DOWN){
+				if(hero.isGameOver()){
+					return;
+				}
 				if(hero.move(hero.getX(), hero.getY()+1) == 1){
 					addBattlePanel();
 				}
@@ -206,6 +212,9 @@ public class GameController{
 			}
 			//press left key
 			else if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
+				if(hero.isGameOver()){
+					return;
+				}
 				if(hero.move(hero.getX()-1, hero.getY()) == 1){
 					addBattlePanel();
 				}
@@ -214,6 +223,9 @@ public class GameController{
 			}
 			//press right key
 			else if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
+				if(hero.isGameOver()){
+					return;
+				}
 				if(hero.move(hero.getX()+1, hero.getY()) == 1){
 					addBattlePanel();
 				}
