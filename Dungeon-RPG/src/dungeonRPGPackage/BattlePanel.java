@@ -29,13 +29,14 @@ import dungeonRPGPackage.GameController.DungeonPanel;
  * @author jordan
  *
  */
-public class BattlePanel extends JPanel implements ActionListener, KeyListener{
+public class BattlePanel extends JPanel implements KeyListener{
 	
 	public static final int DELAY = 50, HEROX = 30, HEROY = 300, MONSTERX = 370, MONSTERY = 30, OFFSET = 20;
 	private Hero hero;
 	private Monster monster;
 	private boolean attacking;
 	private AnimPanel animPanel;
+	private PotAnimPanel potAnimPanel;
 	private ImageIcon heroIcon, monsterIcon;
 	private Image heroImage, monsterImage;
 	public Timer timer;
@@ -49,6 +50,7 @@ public class BattlePanel extends JPanel implements ActionListener, KeyListener{
 	 */
 	public BattlePanel(Hero hero, Monster monster){
 		animPanel = new AnimPanel(hero, monster);
+		potAnimPanel = new PotAnimPanel(hero, monster);
 		attacking = false;
 		this.hero = hero;
 		this.monster = monster;
@@ -60,11 +62,6 @@ public class BattlePanel extends JPanel implements ActionListener, KeyListener{
 		monsterImage = monsterIcon.getImage();
 		
 		this.addKeyListener(this);
-		
-		timer = new Timer(DELAY, this);
-		timer.setRepeats(true);
-        timer.setCoalesce(true);
-		timer.start();
 	}
 
 	@Override
@@ -81,6 +78,8 @@ public class BattlePanel extends JPanel implements ActionListener, KeyListener{
 		g.drawString("Weapon Lv "+hero.getWeapon().getLevel()+" Exp:"+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp(), MONSTERX, HEROY+OFFSET*2);
 		g.drawString("HP: "+hero.getCurrHealth()+"/"+hero.getMaxHealth(), MONSTERX, HEROY+OFFSET*3);
 		g.drawImage(heroImage, HEROX, HEROY, 150, 150, null);
+		g.drawString("Press 'a' to attack", OFFSET, Map.FRAMEHEIGHT-4*OFFSET);
+		g.drawString("Press p to use potion, "+hero.getPotionCount()+"x left",OFFSET, Map.FRAMEHEIGHT-3*OFFSET);
 		g.drawImage(monsterImage, MONSTERX, MONSTERY, 150, 150, null);
 	}
 	
@@ -103,13 +102,6 @@ public class BattlePanel extends JPanel implements ActionListener, KeyListener{
 	    return bi;
 	}
 
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		repaint();
-	}
-
-
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -126,13 +118,20 @@ public class BattlePanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		JFrame dungeonFrame = GameController.getDungeonFrame();
 		if(e.getKeyCode() == KeyEvent.VK_A){
-			JFrame dungeonFrame = GameController.getDungeonFrame();
 			dungeonFrame.remove(this);
 			dungeonFrame.add(animPanel);
 			animPanel.timer.start();
 			dungeonFrame.revalidate();
-			timer.stop();
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_P){
+			if(hero.getPotionCount() > 0){
+				dungeonFrame.remove(this);
+				dungeonFrame.add(potAnimPanel);
+				potAnimPanel.timer.start();
+				dungeonFrame.revalidate();
+			}
 		}
 	}
 		

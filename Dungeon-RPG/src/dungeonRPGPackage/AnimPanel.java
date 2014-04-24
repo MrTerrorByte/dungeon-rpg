@@ -26,8 +26,6 @@ public class AnimPanel extends JPanel implements ActionListener{
 		public AnimPanel(Hero hero, Monster monster){
 			Turn = true;
 			timer = new Timer(DELAY, this);
-			timer.setRepeats(true);
-	        timer.setCoalesce(true);
 			timer.start();
 			this.hero = hero;
 			this.monster = monster;
@@ -108,7 +106,7 @@ public class AnimPanel extends JPanel implements ActionListener{
 					JFrame dungeonFrame = GameController.getDungeonFrame();
 					dungeonFrame.remove(this);
 					dungeonFrame.add(GameController.battlePanel);
-					GameController.battlePanel.timer.start();
+					GameController.battlePanel.repaint();
 					dungeonFrame.revalidate();
 					this.Turn = true;
 					return;
