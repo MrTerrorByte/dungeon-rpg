@@ -56,6 +56,6 @@ public class Battle {
 			hero.setGold(hero.getGold() + monster.getGoldGain());
 			return 1;
 		}
-		return 0;
+		return -1;
 	}
 }

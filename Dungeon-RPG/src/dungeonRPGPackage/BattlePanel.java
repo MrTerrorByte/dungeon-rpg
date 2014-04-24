@@ -8,6 +8,8 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,13 +29,17 @@ import dungeonRPGPackage.GameController.DungeonPanel;
  * @author jordan
  *
  */
-public class BattlePanel extends JPanel implements ActionListener {
+public class BattlePanel extends JPanel implements ActionListener, KeyListener{
 	
+	public static final int DELAY = 50, HEROX = 30, HEROY = 300, MONSTERX = 370, MONSTERY = 30, OFFSET = 20;
 	private Hero hero;
 	private Monster monster;
-	private JLabel heroImage, monsterImage, heroName, monsterName, heroHP, monsterHP, monsterLevel, shieldLevel, weaponLevel;
-	private JButton attackButton, potionButton;
 	private boolean attacking;
+	private AnimPanel animPanel;
+	private ImageIcon heroIcon, monsterIcon;
+	private Image heroImage, monsterImage;
+	public Timer timer;
+	
 	/**
 	 * initializes all the JLabels and JButtons
 	 * 
@@ -42,81 +48,40 @@ public class BattlePanel extends JPanel implements ActionListener {
 	 * @param dungeonFrame 
 	 */
 	public BattlePanel(Hero hero, Monster monster){
+		animPanel = new AnimPanel(hero, monster);
 		attacking = false;
 		this.hero = hero;
 		this.monster = monster;
 		this.setLayout(null);
-		heroImage = new JLabel();
-		heroImage.setIcon(new ImageIcon(resize(hero.getBackImage(), 150, 150)));
+		heroIcon = new ImageIcon(resize(hero.getBackImage(), 150, 150));
+		heroImage = heroIcon.getImage();
 		
-		monsterImage = new JLabel();
-		monsterImage.setIcon(new ImageIcon(resize(monster.getImage(), 150, 150)));
+		monsterIcon = new ImageIcon(resize(monster.getImage(), 150, 150));
+		monsterImage = monsterIcon.getImage();
 		
-		heroName = new JLabel();
-		heroName.setText(hero.getName());
-		heroName.setFont(new Font(null, 1, 20));
+		this.addKeyListener(this);
 		
-		monsterName = new JLabel();
-		monsterName.setText(monster.getName());
-		monsterName.setFont(new Font(null, 1, 20));
-		
-		heroHP = new JLabel();
-		heroHP.setText("HP: "+(int)hero.getCurrHealth()+"/"+(int)hero.getMaxHealth());
-		
-		monsterHP = new JLabel();
-		monsterHP.setText("HP: "+(int)monster.getCurrHealth()+"/"+(int)monster.getMaxHealth());
-		
-		monsterLevel = new JLabel();
-		monsterLevel.setText("Lv"+monster.getLevel());
-		
-		shieldLevel = new JLabel();
-		weaponLevel = new JLabel();
-		shieldLevel.setText("Shield Lv "+hero.getShield().getLevel()+" Exp:"+hero.getShield().getCurrExp()+"/"+hero.getShield().getReqExp());
-		weaponLevel.setText("Weapon Lv "+hero.getWeapon().getLevel()+" Exp:"+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp());
-		
-		attackButton = new JButton("Attack");
-		attackButton.addActionListener(this);
-		potionButton = new JButton(hero.getPotionCount()+"x potions left");
-		potionButton.addActionListener(this);
-		
-		initPositions();
-		addLabels();
+		timer = new Timer(DELAY, this);
+		timer.setRepeats(true);
+        timer.setCoalesce(true);
+		timer.start();
 	}
 
-	/**
-	 * adds all the labels and buttons to the JPanel
-	 */
-	public void addLabels(){
-		this.add(heroImage);
-		this.add(monsterImage);
-		this.add(heroName);
-		this.add(monsterName);
-		this.add(heroHP);
-		this.add(monsterHP);
-		this.add(monsterLevel);
-		this.add(attackButton);
-		this.add(potionButton);
-		this.add(shieldLevel);
-		this.add(weaponLevel);
-	}
-	
-	/**
-	 * Sets the sizes and positions for the labels and buttons
-	 */
-	public void initPositions(){
-		monsterName.setBounds(50, 30, 200, 20);
-		monsterLevel.setBounds(50, 50, 2000, 20);
-		monsterHP.setBounds(50, 70, 200, 20);
-		monsterImage.setBounds(400, 50, 150, 150);
-		
-		attackButton.setBounds(30, 500, 150, 30);
-		potionButton.setBounds(200, 500, 150, 30);
-		
-		shieldLevel.setBounds(350, 320, 200, 20);
-		weaponLevel.setBounds(350, 340, 200, 20);
-		heroName.setBounds(350, 300, 200, 20);
-		heroHP.setBounds(350, 360, 200, 20);
-		heroImage.setBounds(30, 300, 150, 150);
+	@Override
+	public void paint(Graphics g){
+		this.requestFocus();
+		g = (Graphics2D)g;
+		super.paint(g);
+		g.setFont(new Font(null, Font.PLAIN, 17));
+		g.drawString(monster.getName(), HEROX, MONSTERY);
+		g.drawString(hero.getName(), MONSTERX, HEROY);
+		g.drawString("HP: "+monster.getCurrHealth()+"/"+monster.getMaxHealth(), HEROX, MONSTERY+2*OFFSET);
+		g.drawString("Lv "+monster.getLevel(), HEROX, MONSTERY+OFFSET);
+		g.drawString("Shield Lv "+hero.getShield().getLevel()+" Exp:"+hero.getShield().getCurrExp()+"/"+hero.getShield().getReqExp(), MONSTERX, HEROY+OFFSET);
+		g.drawString("Weapon Lv "+hero.getWeapon().getLevel()+" Exp:"+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp(), MONSTERX, HEROY+OFFSET*2);
+		g.drawString("HP: "+hero.getCurrHealth()+"/"+hero.getMaxHealth(), MONSTERX, HEROY+OFFSET*3);
+		g.drawImage(heroImage, HEROX, HEROY, 150, 150, null);
+		g.drawImage(monsterImage, MONSTERX, MONSTERY, 150, 150, null);
 	}
 	
 	/**
@@ -137,55 +102,38 @@ public class BattlePanel extends JPanel implements ActionListener {
 	    g2d.dispose();
 	    return bi;
 	}
-	
 
-	/**
-	 * After clicking on a button, the labels have to be updated
-	 * to reflect the new data.
-	 */
-	public void updateLabels(){
-		heroHP.setText("HP: "+(int)hero.getCurrHealth()+"/"+(int)hero.getMaxHealth());
-		
-		monsterHP.setText("HP: "+(int)monster.getCurrHealth()+"/"+(int)monster.getMaxHealth());
-		
-		monsterLevel.setText("Lv"+monster.getLevel());
-		
-		potionButton.setText(hero.getPotionCount()+"x potions left");
-		
-		shieldLevel.setText("Shield Lv "+hero.getShield().getLevel()+" Exp:"+hero.getShield().getCurrExp()+"/"+hero.getShield().getReqExp());
-		weaponLevel.setText("Weapon Lv "+hero.getWeapon().getLevel()+" Exp:"+hero.getWeapon().getCurrExp()+"/"+hero.getWeapon().getReqExp());
-		
-	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(attackButton.equals(e.getSource())){
-			AnimPanel animPanel = new AnimPanel(hero, monster);
-			GameController.getDungeonFrame().remove(this);
-			GameController.getDungeonFrame().add(animPanel);
-			GameController.getDungeonFrame().validate();
-			
-			if(Battle.attack(hero, monster, true) == 1){
-				JFrame dungeonFrame = GameController.getDungeonFrame();
-				DungeonPanel dungeonPanel = GameController.getDungeonPanel();
-				dungeonFrame.remove(animPanel);
-				dungeonFrame.add(dungeonPanel);
-				dungeonFrame.validate();
-				dungeonPanel.repaint();
-				return;
-			}
-			
-			Battle.attack(hero, monster, false);
-			updateLabels();
-		}
-		else if(potionButton.equals(e.getSource())){
-			Battle.usePotion(hero, new Potion("", "", 0.5));
-			updateLabels();
-			
-			Battle.attack(hero, monster, false);
-			updateLabels();
+		repaint();
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_A){
+			JFrame dungeonFrame = GameController.getDungeonFrame();
+			dungeonFrame.remove(this);
+			dungeonFrame.add(animPanel);
+			animPanel.timer.start();
+			dungeonFrame.revalidate();
+			timer.stop();
 		}
 	}
-	
-	
+		
 }

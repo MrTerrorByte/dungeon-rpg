@@ -56,7 +56,7 @@ public class GameController{
             caveImage = ImageIO.read(new File("src/images/cave.png"));
             waterImage = ImageIO.read(new File("src/images/water.png"));
         } catch (IOException e) {
-        	System.out.println("Image doesn't exist");
+        	System.out.println("Image doesnt exist");
         }
 
 		dungeonFrame.addWindowListener(new WindowAdapter() {
@@ -151,7 +151,7 @@ public class GameController{
 			//press up key
 			if(arg0.getKeyCode() == KeyEvent.VK_UP){
 				if(hero.move(hero.getX(), hero.getY()-1) == 1){
-					//addBattlePanel();
+					addBattlePanel();
 				}
 				heroImage = hero.getBackImage();
 				dungeonPanel.repaint();
@@ -159,7 +159,7 @@ public class GameController{
 			//press down key
 			else if(arg0.getKeyCode() == KeyEvent.VK_DOWN){
 				if(hero.move(hero.getX(), hero.getY()+1) == 1){
-					//addBattlePanel();
+					addBattlePanel();
 				}
 				heroImage = hero.getFrontImage();
 				dungeonPanel.repaint();
@@ -167,7 +167,7 @@ public class GameController{
 			//press left key
 			else if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
 				if(hero.move(hero.getX()-1, hero.getY()) == 1){
-					//addBattlePanel();
+					addBattlePanel();
 				}
 				heroImage = hero.getLeftImage();
 				dungeonPanel.repaint();
@@ -175,7 +175,7 @@ public class GameController{
 			//press right key
 			else if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
 				if(hero.move(hero.getX()+1, hero.getY()) == 1){
-					//addBattlePanel();
+					addBattlePanel();
 				}
 				heroImage = hero.getRightImage();
 				dungeonPanel.repaint();
@@ -205,7 +205,7 @@ public class GameController{
 		private JLabel heroImageLabel;
 		private ImageIcon maleIcon, femaleIcon;
 		private JTextField nameField;
-		private boolean gender = hero.MALE;	
+		private boolean gender = hero.MALE;		
 		
 		public StartMenu(){
 			// set layout to gridbaglayout
