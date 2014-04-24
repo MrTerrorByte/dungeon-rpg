@@ -80,7 +80,7 @@ import javax.swing.Timer;
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if(e.getKeyCode() == KeyEvent.VK_UP){
+			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				if(doneLoading){
 					JFrame dungeonFrame = GameController.getDungeonFrame();
 				 	dungeonFrame.remove(this);

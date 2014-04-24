@@ -35,7 +35,6 @@ public class BattlePanel extends JPanel implements KeyListener{
 	public static final int DELAY = 50, HEROX = 30, HEROY = 300, MONSTERX = 370, MONSTERY = 30, OFFSET = 20;
 	private Hero hero;
 	private Monster monster;
-	private boolean attacking;
 	private AnimPanel animPanel;
 	private PotAnimPanel potAnimPanel;
 	private ImageIcon heroIcon, monsterIcon;
@@ -52,7 +51,6 @@ public class BattlePanel extends JPanel implements KeyListener{
 	public BattlePanel(Hero hero, Monster monster){
 		animPanel = new AnimPanel(hero, monster);
 		potAnimPanel = new PotAnimPanel(hero, monster);
-		attacking = false;
 		this.hero = hero;
 		this.monster = monster;
 		this.setLayout(null);
