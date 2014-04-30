@@ -8,7 +8,7 @@ public class Map {
 	
 	//Enum for Tile
 	public enum Tile{
-		GRASS, ROCK, NONE, FLOOR, WATER, TREE, LAVA, DRAGON
+		GRASS, ROCK, NONE, FLOOR, WATER, TREE, LAVA, DRAGON, SHOP
 	}
 	
 	public static final int FRAMEWIDTH = 600, FRAMEHEIGHT = 600, ARRAYSIZE = 12;

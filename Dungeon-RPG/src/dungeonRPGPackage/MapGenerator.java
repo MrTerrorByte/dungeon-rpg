@@ -22,6 +22,7 @@ public class MapGenerator {
 	final static String TREE = "5";
 	final static String LAVA = "6";
 	final static String DRAGON = "7";
+	final static String SHOP = "8";
 	
 	/**
 	 * Generates a Map based on a textfile
@@ -62,6 +63,9 @@ public class MapGenerator {
             			break;
             		case DRAGON:
             			dungeonMap.getTileArray()[row][col] = Tile.DRAGON;
+            			break;
+            		case SHOP:
+            			dungeonMap.getTileArray()[row][col] = Tile.SHOP;
             			break;
             	}
             }

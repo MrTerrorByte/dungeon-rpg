@@ -28,6 +28,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import dungeonRPGPackage.Map.Tile;
+
 /**
  * Main Game Loop
  * @author rrienton
@@ -41,7 +43,8 @@ public class GameController{
 	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
     private static DungeonPanel dungeonPanel;
     public static BattlePanel battlePanel;
-    private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage, treeImage, lavaImage, dragonImage;
+    private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage, treeImage, lavaImage, dragonImage,
+    						shopImage;
     private boolean gameOver = false;
     
     /**
@@ -60,6 +63,7 @@ public class GameController{
             treeImage = ImageIO.read(new File("src/images/tree.png"));
             lavaImage = ImageIO.read(new File("src/images/lava.png"));
             dragonImage = ImageIO.read(new File("src/images/dragon.png"));
+            shopImage = ImageIO.read(new File("src/images/shopkeeperFront.png"));
         } catch (IOException e) {
         	System.out.println("Image doesnt exist");
         }
@@ -161,6 +165,10 @@ public class GameController{
                         	case DRAGON:
                         		tileGraphics.drawImage(dragonImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
                         		break;
+                        	case SHOP:
+                        		tileGraphics.drawImage(grassImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		tileGraphics.drawImage(shopImage, row*tileSize, col*tileSize, tileSize, tileSize, null);
+                        		break;
                         	case NONE:
                         		tileGraphics.setColor(Color.BLACK);
                         		tileGraphics.fillRect(row*tileSize, col*tileSize, tileSize, tileSize);
@@ -236,6 +244,11 @@ public class GameController{
 			else if(arg0.getKeyCode() == KeyEvent.VK_SPACE){
 				if(hero.isGameOver()){
 					restartGame();
+				}
+				//if the shopkeeper is in front of hero
+				else if(hero.getMap().getTileArray()[hero.getX()][hero.getY()+1] == Tile.SHOP){
+					//open shop panel
+					
 				}
 			}
 		}
