@@ -33,6 +33,7 @@ import javax.swing.Timer;
 			super.paint(gr);
 			gr.setFont(new Font(null, Font.PLAIN, 25));
 			gr.setColor(Color.white);
+			this.requestFocus();
 			switch(stringCount){
 				case 1: gr.drawString("Prep",  Map.FRAMEWIDTH/6+4*OFFSET, Map.FRAMEHEIGHT/2-OFFSET);
 						stringCount++;
@@ -53,7 +54,6 @@ import javax.swing.Timer;
 						 gr.drawString("Press the spacebar to continue", Map.FRAMEWIDTH/6, Map.FRAMEHEIGHT-10*OFFSET);
 						 stringCount = 1;
 						 doneLoading = true;
-						 this.requestFocus();
 						 //timer.stop();
 						 break;
 			}
@@ -81,12 +81,10 @@ import javax.swing.Timer;
 		@Override
 		public void keyReleased(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
-				if(doneLoading){
 					JFrame dungeonFrame = GameController.getDungeonFrame();
 				 	dungeonFrame.remove(this);
 				 	dungeonFrame.add(GameController.battlePanel);
 				 	dungeonFrame.revalidate();
-				}
 			}
 		}
 		

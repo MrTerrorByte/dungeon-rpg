@@ -17,10 +17,10 @@ public class AnimPanel extends JPanel implements ActionListener{
 	
 		private static final int DELAY = 50;
 		public Timer timer;
-		private int slashCount = 1;
+		private int slashCount = 0;
 		private Hero hero;
 		private Monster monster;
-		private BufferedImage cut1, cut2, cut3, cut4, cut5, cut6, cut7;
+		private BufferedImage[] cuts;
 		private boolean Turn;
 		
 		public AnimPanel(Hero hero, Monster monster){
@@ -29,6 +29,7 @@ public class AnimPanel extends JPanel implements ActionListener{
 			timer.start();
 			this.hero = hero;
 			this.monster = monster;
+			cuts = new BufferedImage[7];
 
 			try {
 				initImages();
@@ -38,13 +39,10 @@ public class AnimPanel extends JPanel implements ActionListener{
 		}
 		
 		public void initImages() throws IOException{
-			cut1 = ImageIO.read(new File("src/images/cut1.png"));
-			cut2 = ImageIO.read(new File("src/images/cut2.png"));
-			cut3 = ImageIO.read(new File("src/images/cut3.png"));
-			cut4 = ImageIO.read(new File("src/images/cut4.png"));
-			cut5 = ImageIO.read(new File("src/images/cut5.png"));
-			cut6 = ImageIO.read(new File("src/images/cut6.png"));
-			cut7 = ImageIO.read(new File("src/images/cut7.png"));
+			for(int i = 0; i < 7; i++){
+				int j= i+1;
+				cuts[i] = ImageIO.read(new File("src/images/cut"+j+".png"));
+			}
 		}
 		@Override
 		public void paintComponent(Graphics g){
@@ -73,55 +71,34 @@ public class AnimPanel extends JPanel implements ActionListener{
 				x = BattlePanel.HEROX;
 				y = BattlePanel.HEROY;
 			}
-			if(slashCount == 1){
-				gr.drawImage(cut1, x, y, 200, 200, null);
+			if(slashCount <= 6){
+				gr.drawImage(cuts[slashCount], x, y, 200, 200, null);
 				slashCount++;
-			}
-			else if(slashCount == 2){
-				gr.drawImage(cut2, x, y, 200, 200, null);
-				slashCount++;
-			}
-			else if(slashCount == 3){
-				gr.drawImage(cut3, x, y, 200, 200, null);
-				slashCount++;
-			}
-			else if(slashCount == 4){
-				gr.drawImage(cut4, x, y, 200, 200, null);
-				slashCount++;
-			}
-			else if(slashCount == 5){
-				gr.drawImage(cut5, x, y, 200, 200, null);
-				slashCount++;
-			}
-			else if(slashCount == 6){
-				gr.drawImage(cut6, x, y, 200, 200, null);
-				slashCount++;
-			}
-			else if(slashCount == 7){
-				gr.drawImage(cut7, x, y, 200, 200, null);
-				slashCount = 1;
-				timer.stop();
-				//if monster's turn
-				if(Turn == false){
-					JFrame dungeonFrame = GameController.getDungeonFrame();
-					dungeonFrame.remove(this);
-					//if Hero dies
-					
-					if(Battle.attack(hero, monster, Turn) == -1){
-						dungeonFrame.add(GameController.getDungeonPanel());
-						this.Turn = true;
-						GameController.getDungeonPanel().repaint();
+				if(slashCount == 6){
+					slashCount = 0;
+					timer.stop();
+					//if monster's turn
+					if(Turn == false){
+						JFrame dungeonFrame = GameController.getDungeonFrame();
+						dungeonFrame.remove(this);
+						//if Hero dies
+						
+						if(Battle.attack(hero, monster, Turn) == -1){
+							dungeonFrame.add(GameController.getDungeonPanel());
+							this.Turn = true;
+							GameController.getDungeonPanel().repaint();
+							dungeonFrame.revalidate();
+							return;
+						}
+						
+						dungeonFrame.add(GameController.battlePanel);
+						GameController.battlePanel.repaint();
 						dungeonFrame.revalidate();
+						this.Turn = true;
 						return;
 					}
-					
-					dungeonFrame.add(GameController.battlePanel);
-					GameController.battlePanel.repaint();
-					dungeonFrame.revalidate();
-					this.Turn = true;
-					return;
+					endAnimation();
 				}
-				endAnimation();
 			}
 		}
 		
