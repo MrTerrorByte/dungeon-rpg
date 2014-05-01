@@ -1,5 +1,7 @@
 package dungeonRPGPackage;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -110,6 +112,9 @@ public class AnimPanel extends JPanel implements ActionListener{
 			JFrame dungeonFrame = GameController.getDungeonFrame();
 			
 			if(Battle.attack(hero, monster, true) == 1){
+				if(monster.getName().equals("Smog")){
+					GameController.setDragonAlive(false);
+				}
 				dungeonFrame.remove(this);
 				dungeonFrame.add(GameController.getDungeonPanel());
 				dungeonFrame.revalidate();

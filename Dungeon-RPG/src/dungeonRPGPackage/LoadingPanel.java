@@ -54,7 +54,7 @@ import javax.swing.Timer;
 						 gr.drawString("Press the spacebar to continue", Map.FRAMEWIDTH/6, Map.FRAMEHEIGHT-10*OFFSET);
 						 stringCount = 1;
 						 doneLoading = true;
-						 //timer.stop();
+						 timer.stop();
 						 break;
 			}
 		}
