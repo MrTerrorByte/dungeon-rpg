@@ -437,13 +437,12 @@ public class GameController{
 		        heroImage = hero.getFrontImage();
 		        
 		        dungeonFrame.remove(this);
-		    	dungeonPanel = new DungeonPanel();
+		    	dungeonFrame.add(new StoryPanel());
+		    	dungeonFrame.revalidate();
+		        
+		        dungeonPanel = new DungeonPanel();
 		    	dungeonPanel.addKeyListener(dungeonPanel);
 		        dungeonPanel.setBounds(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
-		        dungeonFrame.add(dungeonPanel);
-		        dungeonFrame.revalidate();
-		        dungeonPanel.setVisible(true);
-		        dungeonPanel.requestFocus();
 			}
 			//radio buttons for choosing Hero
 			if("Male".equals(event.getActionCommand())) {
