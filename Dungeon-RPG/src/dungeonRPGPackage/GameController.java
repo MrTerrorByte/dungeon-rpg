@@ -258,8 +258,13 @@ public class GameController{
 					restartGame();
 				}
 				//if the shopkeeper is in front of hero
-				else if(hero.getMap().getTileArray()[hero.getX()][hero.getY()+1] == Tile.SHOP){
-					//open shop panel
+				else if(hero.getMap().getTileArray()[hero.getX()][hero.getY()-1] == Tile.SHOP){
+					if(heroImage == hero.getBackImage()){
+						dungeonFrame.remove(dungeonPanel);
+				    	ShopPanel shopPanel = new ShopPanel(hero, shopImage);
+				    	dungeonFrame.add(shopPanel);
+				    	dungeonFrame.validate();
+					}
 					
 				}
 				else if(hero.getMap().getTileArray()[hero.getX()][hero.getY()-1] == Tile.DRAGON){
