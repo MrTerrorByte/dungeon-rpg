@@ -46,6 +46,7 @@ public class GameController{
     private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage, treeImage, lavaImage, dragonImage,
     						shopImage;
     private boolean gameOver = false;
+    private boolean bossDialouge = false;
     
     /**
      * Constructs a GameController, which means the JFrame that displays the Map and Hero.
@@ -106,12 +107,13 @@ public class GameController{
 			monster.setImage(ImageIO.read(new File("src/images/death_scythe_front.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}/*
     	dungeonFrame.remove(dungeonPanel);
     	battlePanel = new BattlePanel(hero, monster);
     	LoadingPanel loadingPanel = new LoadingPanel();
     	dungeonFrame.add(loadingPanel);
     	dungeonFrame.validate();
+    	*/
     }
 	
 	/**
@@ -177,6 +179,16 @@ public class GameController{
             		}
             	}
             	tileGraphics.drawImage(heroImage, hero.getX()*tileSize, hero.getY()*tileSize, null);
+            	if(bossDialouge == true){
+            		tileGraphics.drawRect(0, Map.FRAMEHEIGHT-100, Map.FRAMEWIDTH, 100);
+            		tileGraphics.fillRect(0, Map.FRAMEHEIGHT-100, Map.FRAMEWIDTH, 100);
+            		tileGraphics.setColor(Color.white);
+            		Font originalFont = tileGraphics.getFont();
+            		tileGraphics.setFont(new Font(null, Font.PLAIN, 25));
+            		tileGraphics.drawString("Who dares disturb my slumber...", 50, 540);
+            		tileGraphics.setColor(Color.black);
+            		tileGraphics.setFont(originalFont);
+            	}
             }
 		}
 		
@@ -249,6 +261,29 @@ public class GameController{
 				else if(hero.getMap().getTileArray()[hero.getX()][hero.getY()+1] == Tile.SHOP){
 					//open shop panel
 					
+				}
+				else if(hero.getMap().getTileArray()[hero.getX()][hero.getY()-1] == Tile.DRAGON){
+					if(heroImage == hero.getBackImage()){
+						bossDialouge = true;
+						repaint();
+					}
+					
+				}
+			}
+			else if(arg0.getKeyCode() == KeyEvent.VK_A){
+				if(bossDialouge == true){
+					Monster dragon = new Monster("Smog", 5, null);
+				 	try {
+						dragon.setImage(ImageIO.read(new File("src/images/dragon_battle.png")));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					dungeonFrame.remove(dungeonPanel);
+			    	battlePanel = new BattlePanel(hero, dragon);
+			    	LoadingPanel loadingPanel = new LoadingPanel();
+			    	dungeonFrame.add(loadingPanel);
+			    	dungeonFrame.validate();
+			    	bossDialouge = false;
 				}
 			}
 		}
