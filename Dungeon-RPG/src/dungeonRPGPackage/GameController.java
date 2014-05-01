@@ -112,13 +112,13 @@ public class GameController{
 			monster.setImage(ImageIO.read(new File("src/images/death_scythe_front.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}/*
+		}
     	dungeonFrame.remove(dungeonPanel);
     	battlePanel = new BattlePanel(hero, monster);
     	LoadingPanel loadingPanel = new LoadingPanel();
     	dungeonFrame.add(loadingPanel);
     	dungeonFrame.validate();
-    	*/
+    	
     }
 	
 	/**

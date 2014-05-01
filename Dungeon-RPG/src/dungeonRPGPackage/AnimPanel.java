@@ -119,11 +119,10 @@ public class AnimPanel extends JPanel implements ActionListener{
 				dungeonFrame.add(GameController.getDungeonPanel());
 				dungeonFrame.revalidate();
 				GameController.getDungeonPanel().repaint();
+				timer.stop();
 				return;
 			}
 			Turn = !Turn;
-			timer.start();
-
 		}
 		
 		@Override
