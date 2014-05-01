@@ -43,11 +43,11 @@ public class GameController{
 	private static JFrame dungeonFrame = new JFrame("Dungeon RPG");
     private static DungeonPanel dungeonPanel;
     public static BattlePanel battlePanel;
+    public static StartMenu startMenu;
     private BufferedImage heroImage, grassImage, caveImage, floorImage, waterImage, treeImage, lavaImage, dragonImage,
     						shopImage;
     private boolean gameOver = false;
     private boolean bossDialouge = false;
-    private static boolean isDragonAlive = true;
     
     /**
      * Constructs a GameController, which means the JFrame that displays the Map and Hero.
@@ -76,17 +76,13 @@ public class GameController{
 			}
 		});
 
-        StartMenu startMenu = new StartMenu();
+        startMenu = new StartMenu();
         dungeonFrame.add(startMenu);
 		
         dungeonFrame.setSize(Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
 		dungeonFrame.setResizable(false);
 		dungeonFrame.setVisible(true);
         dungeonFrame.validate();
-    }
-    
-    public static void setDragonAlive(boolean life){
-    	isDragonAlive = life;
     }
     
     public static JFrame getDungeonFrame(){
@@ -132,25 +128,6 @@ public class GameController{
 		public void paint(Graphics g){
 	        this.requestFocus();
             Graphics2D tileGraphics = (Graphics2D) g;
-            
-            if(isDragonAlive == false){
-            	super.paint(tileGraphics);
-            	tileGraphics.drawRect(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
-            	tileGraphics.setColor(Color.black);
-            	tileGraphics.fillRect(0, 0, Map.FRAMEWIDTH, Map.FRAMEHEIGHT);
-            	tileGraphics.setFont(new Font("", Font.BOLD, 30));
-            	tileGraphics.setColor(Color.white);
-            	tileGraphics.drawString("Congratulations!!", 150, 100);
-            	tileGraphics.drawString("You have slain the dragon!", 75, 200);
-            	tileGraphics.setFont(new Font("", Font.PLAIN, 20));
-            	try {
-					tileGraphics.drawImage(ImageIO.read(new File("src/images/dead_dragon.png")), 200, 300, 200, 200, null);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-            	tileGraphics.drawString("Press spacebar to restart", 175, 530);
-            	return;
-            }
             
             //if game is over
             if(hero.isGameOver()) {
@@ -219,9 +196,8 @@ public class GameController{
 		/**
 		 * Restarts the game.
 		 */
-		private void restartGame(){
+		public void restartGame(){
 			dungeonFrame.remove(dungeonPanel);
-			isDragonAlive = true;
 			StartMenu startMenu = new StartMenu();
 	        dungeonFrame.add(startMenu);
 	        dungeonFrame.revalidate();
@@ -279,7 +255,7 @@ public class GameController{
 			}
 			//press space bar
 			else if(arg0.getKeyCode() == KeyEvent.VK_SPACE){
-				if(hero.isGameOver() || isDragonAlive == false){
+				if(hero.isGameOver()){
 					restartGame();
 				}
 				//if the shopkeeper is in front of hero

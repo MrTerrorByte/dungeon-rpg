@@ -68,7 +68,7 @@ public class BattlePanel extends JPanel implements KeyListener{
 		this.requestFocus();
 		g = (Graphics2D)g;
 		super.paint(g);
-		g.setFont(new Font(null, Font.PLAIN, 15));
+		g.setFont(new Font(null, Font.BOLD, 15));
 		g.drawString(monster.getName(), HEROX, MONSTERY);
 		g.drawString(hero.getName(), MONSTERX, HEROY);
 		g.drawString("HP: "+monster.getCurrHealth()+"/"+monster.getMaxHealth(), HEROX, MONSTERY+2*OFFSET);

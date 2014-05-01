@@ -113,14 +113,21 @@ public class AnimPanel extends JPanel implements ActionListener{
 			
 			if(Battle.attack(hero, monster, true) == 1){
 				if(monster.getName().equals("Smog")){
-					GameController.setDragonAlive(false);
+					dungeonFrame.remove(this);
+					WinPanel winPanel = new WinPanel();
+					dungeonFrame.add(winPanel);
+					dungeonFrame.revalidate();
+					winPanel.repaint();
+					timer.stop();
 				}
-				dungeonFrame.remove(this);
-				dungeonFrame.add(GameController.getDungeonPanel());
-				dungeonFrame.revalidate();
-				GameController.getDungeonPanel().repaint();
-				timer.stop();
-				return;
+				else{
+					dungeonFrame.remove(this);
+					dungeonFrame.add(GameController.getDungeonPanel());
+					dungeonFrame.revalidate();
+					GameController.getDungeonPanel().repaint();
+					timer.stop();
+					return;
+				}
 			}
 			Turn = !Turn;
 		}

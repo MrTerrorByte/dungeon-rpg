@@ -163,7 +163,7 @@ public class Hero {
 				}
 			}
 			
-			if(mapIndex > 0 && Math.random()*100.0 <= 10.0){
+			if(mapIndex > 0 && Math.random()*10.0 <= 0.5){
 				return 1;
 			}
 			return 0;
