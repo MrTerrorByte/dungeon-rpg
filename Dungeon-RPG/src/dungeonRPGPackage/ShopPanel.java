@@ -95,7 +95,7 @@ public class ShopPanel extends JPanel implements KeyListener {
         //current gold
         tileGraphics.setFont(new Font("Dialog", Font.BOLD, 15));
         tileGraphics.drawString("Current Gold: " + hero.getGold(), 400, 550);
-        tileGraphics.drawImage(goldImage, 530, 520, null);
+        tileGraphics.drawImage(goldImage, 550, 520, null);
         
         //set up the pointer
         if(upPressed){
