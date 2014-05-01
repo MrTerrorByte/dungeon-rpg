@@ -114,7 +114,6 @@ public class GameController{
     	LoadingPanel loadingPanel = new LoadingPanel();
     	dungeonFrame.add(loadingPanel);
     	dungeonFrame.validate();
-    	
     }
 	
 	/**

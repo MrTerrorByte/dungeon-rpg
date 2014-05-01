@@ -14,19 +14,18 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import dungeonRPGPackage.GameController.StartMenu;
 
 public class WinPanel extends JPanel implements KeyListener{
 	
 	public WinPanel(){
 		this.addKeyListener(this);
-		this.setBackground(Color.black);;
+		this.setBackground(Color.black);
+		this.setLayout(null);
 	}
 	
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
-		this.requestFocus();
 		Graphics2D gr = (Graphics2D) g;
 		gr.setFont(new Font("", Font.BOLD, 30));
     	gr.setColor(Color.white);
@@ -38,7 +37,8 @@ public class WinPanel extends JPanel implements KeyListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	gr.drawString("Press spacebar to restart", 175, 530);
+    	gr.drawString("Press spacebar to exit", 175, 530);
+    	this.requestFocus();
 	}
 
 	@Override
@@ -49,18 +49,13 @@ public class WinPanel extends JPanel implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			JFrame dungeonFrame = GameController.getDungeonFrame();
-			JPanel dungeonPanel = GameController.getDungeonPanel();
-			dungeonFrame.remove(dungeonPanel);
-	        dungeonFrame.add(GameController.startMenu);
-	        dungeonFrame.revalidate();
-		}
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode() == KeyEvent.VK_SPACE){
+			System.exit(0);
+		}		
 	}
 }
