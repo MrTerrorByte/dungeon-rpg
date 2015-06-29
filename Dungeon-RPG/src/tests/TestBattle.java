@@ -12,6 +12,11 @@ import dungeonRPGPackage.Potion;
 import dungeonRPGPackage.Shield;
 import dungeonRPGPackage.Weapon;
 
+/**
+ * 
+ * @author jordan
+ *
+ */
 public class TestBattle {
 
 	Weapon weapon = new Weapon("Sword","Sword",50,10);
