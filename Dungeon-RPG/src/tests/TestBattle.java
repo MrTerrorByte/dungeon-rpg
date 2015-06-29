@@ -13,7 +13,7 @@ import dungeonRPGPackage.Shield;
 import dungeonRPGPackage.Weapon;
 
 /**
- * 
+ * Tests to make sure battles work correctly, given a certain weapon and hero.
  * @author jordan
  *
  */
