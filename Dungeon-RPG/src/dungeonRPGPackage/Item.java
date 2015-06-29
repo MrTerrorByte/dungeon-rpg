@@ -1,5 +1,8 @@
 package dungeonRPGPackage;
 
+/**
+ * @author jordan
+ */
 public class Item {
 	
 	private String name;				//name of item

@@ -1,5 +1,10 @@
 package dungeonRPGPackage;
 
+/**
+ * This class contains methods that allow battles (attacking and using potions)
+ * @author jordan
+ *
+ */
 public class Battle {
 	
 	/**

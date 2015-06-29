@@ -1,5 +1,8 @@
 package dungeonRPGPackage;
 
+/**
+ * @author jordan
+ */
 public class Weapon extends Item{
 	
 	private double attack;			//determines how much damage is dealt when hit by this weapon

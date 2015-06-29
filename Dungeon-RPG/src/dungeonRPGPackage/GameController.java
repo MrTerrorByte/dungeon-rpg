@@ -277,7 +277,7 @@ public class GameController{
 			}
 			else if(arg0.getKeyCode() == KeyEvent.VK_A){
 				if(bossDialouge == true){
-					Monster dragon = new Monster("Smog", 5, null);
+					Monster dragon = new Monster("Smog", 4, null);
 				 	try {
 						dragon.setImage(ImageIO.read(new File("src/images/dragon_battle.png")));
 					} catch (IOException e) {
@@ -406,7 +406,7 @@ public class GameController{
 				// turn start menu invisible
 				this.setVisible(false);
 				//set up dungeon panel and create Hero
-				weapon = new Weapon("Sword","Sword",5000,10);
+				weapon = new Weapon("Sword","Sword",200,200);
 				shield = new Shield("Shield","Shield",100,10);
 		    	hero = new Hero(nameField.getText(), gender, weapon, shield);
 		        heroImage = hero.getFrontImage();

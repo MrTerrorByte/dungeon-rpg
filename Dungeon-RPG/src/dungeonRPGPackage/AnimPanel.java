@@ -15,9 +15,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * This is the panel where battle annimations take place
+ * @author jordan
+ *
+ */
+
 public class AnimPanel extends JPanel implements ActionListener{
 	
-		private static final int DELAY = 50;
+		private static final int DELAY = 75;
 		public Timer timer;
 		private int slashCount = 0;
 		private Hero hero;
@@ -78,7 +84,7 @@ public class AnimPanel extends JPanel implements ActionListener{
 				slashCount++;
 				if(slashCount == 6){
 					slashCount = 0;
-					timer.stop();
+					
 					//if monster's turn
 					if(Turn == false){
 						JFrame dungeonFrame = GameController.getDungeonFrame();

@@ -13,6 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * This panel deals with the animation for using potions
+ * @author jordan
+ *
+ */
 public class PotAnimPanel extends JPanel implements ActionListener{
 	public static int DELAY = 50;
 	public Timer timer;

@@ -14,7 +14,11 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
+/**
+ * This is the panel you see when you beat smog/boss monster
+ * @author jordan
+ *
+ */
 public class WinPanel extends JPanel implements KeyListener{
 	
 	public WinPanel(){

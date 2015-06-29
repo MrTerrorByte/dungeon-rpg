@@ -13,6 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * This is the panel for the loading screen before each battle. It switches to the battle panel.
+ * @author jordan
+ *
+ */
 	public class LoadingPanel extends JPanel implements ActionListener, KeyListener{
 		private final int OFFSET = 20, DELAY = 300;
 		public Timer timer;

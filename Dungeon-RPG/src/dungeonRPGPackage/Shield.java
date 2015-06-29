@@ -1,5 +1,8 @@
 package dungeonRPGPackage;
 
+/**
+ * @author jordan
+ */
 public class Shield extends Item {
 
 	private double hpBoost;			//equipping a shield increases the hero's maxHp by this amount

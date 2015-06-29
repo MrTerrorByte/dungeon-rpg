@@ -1,5 +1,8 @@
 package dungeonRPGPackage;
 
+/**
+ * @author jordan
+ */
 public class Potion extends Item{
 
 	private double healAmount;			//the percentage of the hero's hp that gets restored

@@ -2,6 +2,9 @@ package dungeonRPGPackage;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * @author jordan
+ */
 public class Monster {
 	
 	private double maxHealth;		//the maximum health the monster has
